@@ -1,0 +1,67 @@
+.record {
+  margin-top: 3vh;
+  margin-left: 3vw;
+  display: flex;
+  width: 54vw;
+  height: 10vh;
+  border-radius: 1vh;
+  border: 2px solid black;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding-right: 0.75vw;
+}
+
+.right button {
+  width: 2vw;
+  height: 4vh;
+  border-radius: 1vh;
+  border-color: transparent;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 0.65vw;
+}
+
+.right .edit {
+  background-color: rgb(89, 197, 230);
+}
+
+.right .delete {
+  background-color: rgb(255, 95, 95);
+}
+
+.recordChild {
+  font-weight: bold;
+  font-size: 1vw;
+}
+
+.date,
+.timespent,
+.rating,
+.language {
+  font-weight: normal;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.description {
+  font-size: 0.75vw;
+  display: table;
+  font-weight: normal;
+}
+
+.header {
+  margin-top: 0.75vh;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.footer {
+  margin-top: 1vh;
+  margin-left: 1.3vw;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/AddForm.js"></script>
+	<title>Programming Diary</title>
+</head>
+
+<body>
+	<link rel="stylesheet" href="css/addform.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+	</style>
+	<script type="module" src="js/CustomElements.js"></script>
+	<div class="main" id="main">
+		<button id="addButton">
+			<img src="img/PlusIcon.png" alt="Plus Sign">
+		</button>
+		<div class="addRecord">
+			<h2 id="formHeader">Add record</h2>
+			<form class="createForm">
+				<input type="date" required>
+				<input type="number" placeholder="Enter the Time spent (mins)" min="1" max="1440" required>
+				<input type="text" placeholder="Enter the Language" required>
+				<input type="range" min="1" max="5"
+					oninput="document.getElementById('rangeOutput').textContent = 'Rating: ' + this.value">
+				<span id="rangeOutput">Rating: 3</span>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+		<card-custom date="03/01/2023" spent="240" rating="3" language="Lua"></card-custom>
+	</div>
+	</div>
+</body>
+
+</html>
