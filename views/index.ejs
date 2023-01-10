@@ -26,19 +26,46 @@
 		</button>
 		<div class="addRecord">
 			<h2 id="formHeader">Add record</h2>
-			<form class="createForm">
-				<input type="date" required>
-				<input type="number" placeholder="Enter the Time spent (mins)" min="1" max="1440" required>
-				<input type="text" placeholder="Enter the Language" required>
+			<form class="createForm"  onsubmit="addSesion();return false">
+				<input type="date" required id="date">
+				<input type="number" placeholder="Enter the Time spent (mins)" min="1" max="1440" id="lenght" required>
+				<input type="text" placeholder="Enter the Language"  id="language" required>
+				<input type="text" placeholder="Enter what you've done" id="done" required>
 				<input type="range" min="1" max="5"
 					oninput="document.getElementById('rangeOutput').textContent = 'Rating: ' + this.value">
 				<span id="rangeOutput">Rating: 3</span>
-				<input type="submit" value="Submit">
+				<input   type="submit" value="Submit">
 			</form>
 		</div>
 		<card-custom date="03/01/2023" spent="240" rating="3" language="Lua"></card-custom>
 	</div>
 	</div>
+	<script>// TENHLE KOD ULOZI DATA Z DOTAZNIKU DO LOCALSTORAGE
+		import data from localStorage
+		let sesions = []
+		console.log("LOL");
+
+		console.log(localStorage.getItem('Sesionlist[1]'));
+		console.log("LMAO");
+
+		const addSesion = (ev)=>{
+			ev.preventDefault();//to stop site from refreshing
+			let Sesion =  {
+				id: Date.now(),
+				date: document.getElementById("date").value,
+				lenght: document.getElementById("lenght").value,
+				language: document.getElementById("language").value,
+				rangeOutput: document.getElementById("rangeOutput").value,
+			}
+			sesions.push(Sesion);
+			document.querySelector("form").reset();
+
+			localStorage.setItem("Sesionlist",JSON.stringify(sesions));
+		}
+		document.addEventListener("DOMContentLoaded",()=>{
+			document.getElementById("Submit").addEventListener("click",addSesion);
+		});
+	</script>
 </body>
 
 </html>
