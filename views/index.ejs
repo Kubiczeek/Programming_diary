@@ -10,7 +10,6 @@
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap"
 		rel="stylesheet">
 	<link rel="stylesheet" href="css/main.css">
-	<script src="js/AddForm.js"></script>
 	<title>Programming Diary</title>
 </head>
 
@@ -21,10 +20,11 @@
 	</style>
 	<script type="module" src="js/CustomElements.js"></script>
 	<div class="main" id="main">
-		<button id="addButton">
+		<button id="addButton"
+			onclick="if (document.getElementById('addRecord').style.display == 'none') { document.getElementById('addRecord').style.display = 'block' } else { document.getElementById('addRecord').style.display = 'none' }">
 			<img src="img/PlusIcon.png" alt="Plus Sign">
 		</button>
-		<div class="addRecord">
+		<div class="addRecord" id="addRecord" style="display: none;">
 			<h2 id="formHeader">Add record</h2>
 			<form class="createForm">
 				<input type="date" required>
@@ -33,9 +33,11 @@
 				<input type="range" min="1" max="5"
 					oninput="document.getElementById('rangeOutput').textContent = 'Rating: ' + this.value">
 				<span id="rangeOutput">Rating: 3</span>
-				<input type="submit" value="Submit">
+				<input class="secondLine" type="text" placeholder="Enter the description" required>
+				<input class="secondLine" type="submit" value="Submit">
 			</form>
 		</div>
+		<div class="divider"></div>
 		<card-custom date="03/01/2023" spent="240" rating="3" language="Lua"></card-custom>
 	</div>
 	</div>

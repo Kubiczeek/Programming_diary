@@ -16,12 +16,12 @@ template.innerHTML = `
 				velit, totam adipisci porro eius libero rerum consectetur. Officiis aspernatur voluptate assumenda esse
 				reprehenderit? Reiciendis nobis totam harum saepe?</span>
 		</div>
+		</div>
+		<div class="right">
+			<button class="edit">Edit</button>
+			<button class="delete">Del</button>
+		</div>
 	</div>
-	<div class="right">
-		<button class="edit">Edit</button>
-		<button class="delete">Del</button>
-	</div>
-</div>
 		`;
 
 class Card extends HTMLElement {

@@ -36,3 +36,11 @@ body {
   margin: auto;
   display: block;
 }
+
+.divider {
+  margin-top: 2vh;
+  background-color: grey;
+  opacity: 0.2;
+  width: 60vw;
+  height: 0.3vh;
+}
