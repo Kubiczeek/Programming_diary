@@ -28,8 +28,7 @@
 			<h2 id="formHeader">Add record</h2>
 			<form id="createCardForm" class="createForm" method="post" action="/">
 				<input name="date" type="date" id="date" required>
-				<input name="timespent" type="number" id="timespent" placeholder="Enter the Time spent (mins)" min="1"
-					max="1440" required>
+				<input name="timespent" type="number" id="timespent" placeholder="Enter the Time spent (mins)" min="1" required>
 				<input name="language" type="text" id="language" placeholder="Enter the Language" required>
 				<input name="rating" type="range" id="rating" min="1" max="5"
 					oninput="document.getElementById('rangeOutput').textContent = 'Rating: ' + this.value">
@@ -40,7 +39,10 @@
 			</form>
 		</div>
 		<div class="divider"></div>
-		<card-custom date="03/01/2023" spent="240" rating="3" language="Lua"></card-custom>
+		<% Objects.forEach(element=> {%>
+			<card-custom description=<%=element.description %> date=<%=element.date %> spent=<%= element.timespent %> rating=
+						<%=element.rating %> language=<%= element.language %> cardId=<%= element.id %> ></card-custom>
+			<%}); %>
 	</div>
 	</div>
 </body>

@@ -12,7 +12,7 @@ template.innerHTML = `
 			<span class="recordChild">Language: <span class="language">Lua</span></span>
 		</div>
 		<div class="footer">
-			<span class="description recordChild">Udělal jsem počátek tohoto webu :) Vím jsem mega dobrý, že jsem to takto pošéfil, jsem rád že jsem rád a doufám  že jste rádi i vy protože jinka by to bylo špatné. snad tento text nebude overflowouvat ten container protože bych se zase musel dělat s cssUdělal jsem počátek tohoto webu :) Vím jsem mega dobrý, že jsem to takto pošéfil, jsem rád že jsem rád a doufám  že jste rádi i vy protože jinka by to bylo špatné. snad tento text nebude overflowouvat ten container protože bych se zase musel dělat s cssUdělal jsem počátek tohoto webu :) Vím jsem mega dobrý, že jsem to takto pošéfil, jsem rád že jsem rád a doufám  že jste rádi i vy protože jinka by to bylo špatné. snad tento text nebude overflowouvat ten container protože bych se zase musel dělat s css</span>
+			<span class="description">Udělal jsem počátek tohoto webu :) Vím jsem mega dobrý, že jsem to takto pošéfil, jsem rád že jsem rád a doufám  že jste rádi i vy protože jinka by to bylo špatné. snad tento text nebude overflowouvat ten container protože bych se zase musel dělat s cssUdělal jsem počátek tohoto webu :) Vím jsem mega dobrý, že jsem to takto pošéfil, jsem rád že jsem rád a doufám  že jste rádi i vy protože jinka by to bylo špatné. snad tento text nebude overflowouvat ten container protože bych se zase musel dělat s cssUdělal jsem počátek tohoto webu :) Vím jsem mega dobrý, že jsem to takto pošéfil, jsem rád že jsem rád a doufám  že jste rádi i vy protože jinka by to bylo špatné. snad tento text nebude overflowouvat ten container protože bych se zase musel dělat s css</span>
 		</div>
 		</div>
 		<div class="right">
@@ -30,7 +30,7 @@ class Card extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["date", "spent", "rating", "language"];
+    return ["date", "spent", "rating", "language", "cardId", "description"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -42,6 +42,11 @@ class Card extends HTMLElement {
       this.getAttribute("rating") + "/5";
     this.shadowRoot.querySelector(".recordChild .language").innerText =
       this.getAttribute("language");
+    this.shadowRoot.querySelector(".cardId").innerText =
+      this.getAttribute("cardId");
+    this.shadowRoot.querySelector(".description").innerText = this.getAttribute(
+      "description"
+    ).replace(new RegExp("&@_@&", "g"), " ");
   }
 }
 

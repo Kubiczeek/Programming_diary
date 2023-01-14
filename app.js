@@ -15,7 +15,8 @@ app.set("views", "./views");
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render("index");
+  const Objects = loadJSON("data.json");
+  res.render("index", { Objects: Objects });
 });
 
 app.post("/", (req, res) => {
@@ -26,7 +27,7 @@ app.post("/", (req, res) => {
     body.timespent,
     body.rating,
     body.language,
-    body.description
+    body.description.split(" ").join("&@_@&")
   );
   const currentJson = loadJSON("data.json");
   currentJson.push(sessionLog);

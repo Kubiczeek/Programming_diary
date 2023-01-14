@@ -8,6 +8,9 @@
   border: 2px solid black;
   overflow-y: auto;
 }
+.left {
+  width: 100vw;
+}
 
 .right {
   display: flex;
