@@ -16,7 +16,7 @@ body {
   box-shadow: 5px 5px 15px -1px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: 5px 5px 15px -1px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 5px 5px 15px -1px rgba(0, 0, 0, 0.75);
-  overflow: scroll;
+  overflow: auto;
 }
 
 #addButton {
@@ -28,6 +28,20 @@ body {
   border-radius: 0.5vh;
   background-color: #50c878;
   cursor: pointer;
+  border-radius: 12px;
+}
+#addButton:hover {
+  height: 5vh;
+  width: 40vw;
+  margin-top: 2vh;
+  margin-left: 10vw;
+  border: 0;
+  border-radius: 0.5vh;
+  cursor: pointer;
+  border-radius: 12px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: 2px solid #50c878;
 }
 
 #addButton img {
@@ -35,4 +49,18 @@ body {
   max-height: 60%;
   margin: auto;
   display: block;
+}
+#addButton img :hover {
+  max-width: 60%;
+  max-height: 60%;
+  margin: auto;
+  display: block;
+}
+
+.divider {
+  margin-top: 2vh;
+  background-color: grey;
+  opacity: 0.2;
+  width: 60vw;
+  height: 0.3vh;
 }
