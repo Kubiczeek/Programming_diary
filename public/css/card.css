@@ -6,6 +6,7 @@
   height: 10vh;
   border-radius: 1vh;
   border: 2px solid black;
+  overflow-y: auto;
 }
 
 .right {
@@ -51,7 +52,7 @@
 
 .description {
   font-size: 0.75vw;
-  display: table;
+
   font-weight: normal;
 }
 
@@ -64,4 +65,8 @@
 .footer {
   margin-top: 1vh;
   margin-left: 1.3vw;
+}
+
+.cardId {
+  display: none;
 }

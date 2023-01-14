@@ -26,15 +26,17 @@
 		</button>
 		<div class="addRecord" id="addRecord" style="display: none;">
 			<h2 id="formHeader">Add record</h2>
-			<form class="createForm">
-				<input type="date" required>
-				<input type="number" placeholder="Enter the Time spent (mins)" min="1" max="1440" required>
-				<input type="text" placeholder="Enter the Language" required>
-				<input type="range" min="1" max="5"
+			<form id="createCardForm" class="createForm" method="post" action="/">
+				<input name="date" type="date" id="date" required>
+				<input name="timespent" type="number" id="timespent" placeholder="Enter the Time spent (mins)" min="1"
+					max="1440" required>
+				<input name="language" type="text" id="language" placeholder="Enter the Language" required>
+				<input name="rating" type="range" id="rating" min="1" max="5"
 					oninput="document.getElementById('rangeOutput').textContent = 'Rating: ' + this.value">
 				<span id="rangeOutput">Rating: 3</span>
-				<input class="secondLine" type="text" placeholder="Enter the description" required>
-				<input class="secondLine" type="submit" value="Submit">
+				<input name="description" class="secondLine" id="description" type="text" placeholder="Enter the description"
+					required>
+				<input class="secondLine" type="submit" value="Submit" id="submit">
 			</form>
 		</div>
 		<div class="divider"></div>

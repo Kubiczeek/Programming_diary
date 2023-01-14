@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1673707758157,
+    "date": "2023-01-03",
+    "timespent": "120",
+    "rating": "4",
+    "language": "Javascript",
+    "description": "Udělal jsem počátek tohoto webu :) Vím jsem mega dobrý, že jsem to takto pošéfil, jsem rád že jsem rád a doufám  že jste rádi i vy protože jinka by to bylo špatné. snad tento text nebude overflowouvat ten container protože bych se zase musel dělat s css"
+  },
+  {
+    "id": 1673708181502,
+    "date": "2023-01-12",
+    "timespent": "999",
+    "rating": "1",
+    "language": "C++",
+    "description": "OK!"
+  }
+]
