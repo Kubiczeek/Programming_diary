@@ -38,3 +38,5 @@ app.post("/", (req, res) => {
 app.listen(port, () =>
   console.log(`App listening on http://localhost:${port} \n(Port: ${port})`)
 );
+
+//<img src="img/PlusIcon.png" alt="Plus Sign">
