@@ -16,10 +16,10 @@ app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   const Objects = loadJSON("data.json");
-  res.render("index", { Objects: Objects });
+  res.render("pages/index", { Objects: Objects });
 });
 
-app.post("/", (req, res) => {
+app.post("/add", (req, res) => {
   const body = req.body;
   const sessionLog = new SessionLog(
     Date.now(),
@@ -27,9 +27,46 @@ app.post("/", (req, res) => {
     body.timespent,
     body.rating,
     body.language,
-    body.description.split(" ").join("&@_@&")
+    body.description
   );
   const currentJson = loadJSON("data.json");
+  currentJson.push(sessionLog);
+  saveJSON("data.json", currentJson);
+  res.redirect("/");
+});
+
+app.post("/delete", (req, res) => {
+  const currentJson = loadJSON("data.json");
+  for (let i = 0; i < currentJson.length; i++) {
+    if (currentJson[i].id == req.body.id) {
+      currentJson.splice(i, 1);
+      saveJSON("data.json", currentJson);
+      return;
+    }
+  }
+  res.redirect("/");
+});
+
+app.post("/edit", (req, res) => {
+  const currentJson = loadJSON("data.json");
+  //delete
+  for (let i = 0; i < currentJson.length; i++) {
+    if (currentJson[i].id == req.body.id) {
+      currentJson.splice(i, 1);
+      saveJSON("data.json", currentJson);
+      return;
+    }
+  }
+  //adding
+  const body = req.body;
+  const sessionLog = new SessionLog(
+    Date.now(),
+    body.date,
+    body.timespent,
+    body.rating,
+    body.language,
+    body.description
+  );
   currentJson.push(sessionLog);
   saveJSON("data.json", currentJson);
   res.redirect("/");
