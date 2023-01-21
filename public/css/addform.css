@@ -17,7 +17,8 @@
   font-size: 0.9vw;
 }
 
-.createForm input {
+.createForm input,
+#programmer {
   border-radius: 0.5vh;
   width: 10vw;
   height: 2.5vh;
@@ -37,4 +38,13 @@
 
 .createForm .secondLine {
   margin-top: 1vh;
+}
+
+#editProg_submit {
+  background-color: rgb(89, 197, 230);
+  cursor: pointer;
+}
+
+#delProg_submit {
+  background-color: rgb(240, 77, 77);
 }

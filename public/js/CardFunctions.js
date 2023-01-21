@@ -25,6 +25,9 @@ function editCard(x) {
   document.getElementById("formHeader").innerHTML = "Editing Record";
   document.getElementById("submit").value = "Edit";
   document.getElementById("addRecord").style.display = "block";
+  document.getElementById("programmerHeader").style.display = "none";
+  document.getElementById("programmerSettingsForm").style.display = "none";
+  document.querySelector(".addRecord .divider").style.display = "none";
   var card;
   for (const c of document.getElementsByClassName("record")) {
     if (c.querySelector(".edit") == x) {
@@ -56,6 +59,10 @@ function editCard(x) {
     .replace(/\n/g, "");
   document.getElementById("date").value = card
     .querySelector(".date")
+    .textContent.replace(/\t/g, "")
+    .replace(/\n/g, "");
+  document.getElementById("programmer").value = card
+    .querySelector(".programmer")
     .textContent.replace(/\t/g, "")
     .replace(/\n/g, "");
   var form = document.getElementById("createCardForm");
