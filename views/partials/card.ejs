@@ -1,0 +1,28 @@
+<div class="record">
+  <div class="left">
+    <div class="header">
+      <span class="cardId" id="cardId"> <%= cardId%> </span>
+      <span class="recordChild"
+        >Date: <span class="date"> <%= date%> </span></span
+      >
+      <span class="recordChild"
+        >Time spent: <span class="timespent"> <%= timespent%> </span></span
+      >
+      <span class="recordChild"
+        >Rating: <span class="rating"> <%= rating%> </span></span
+      >
+      <span class="recordChild"
+        >Language:
+        <span class="language" id="recordLanguage"> <%= language%> </span></span
+      >
+    </div>
+    <div class="footer">
+      <span class="description"> <%= description%> </span>
+    </div>
+  </div>
+
+  <div class="right">
+    <button class="edit" onclick="editCard(this)">Edit</button>
+    <button class="delete" onclick="deleteCard(this)">Del</button>
+  </div>
+</div>

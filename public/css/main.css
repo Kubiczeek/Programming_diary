@@ -28,31 +28,11 @@ body {
   border-radius: 0.5vh;
   background-color: #50c878;
   cursor: pointer;
-  border-radius: 12px;
-}
-#addButton:hover {
-  height: 5vh;
-  width: 40vw;
-  margin-top: 2vh;
-  margin-left: 10vw;
-  border: 0;
-  border-radius: 0.5vh;
-  cursor: pointer;
-  border-radius: 12px;
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
-  border: 2px solid #50c878;
 }
 
 #addButton img {
   max-width: 60%;
   max-height: 60%;
-  margin: auto;
-  display: block;
-}
-#addButton img :hover {
-  max-width: 100%;
-  max-height: 100%;
   margin: auto;
   display: block;
 }
@@ -63,4 +43,63 @@ body {
   opacity: 0.2;
   width: 60vw;
   height: 0.3vh;
+}
+.sortAndFilter button {
+  flex-direction: row;
+  background-color: burlywood;
+  cursor: pointer;
+}
+.filter .LanguageFilter {
+  flex-direction: row;
+  cursor: pointer;
+}
+.sortAndFilter .filter {
+  display: none;
+}
+
+.SortButton {
+  background-color: #04aa6d;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.filter {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.filter:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.filter:hover .SortButton {
+  background-color: #3e8e41;
 }

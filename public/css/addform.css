@@ -22,39 +22,19 @@
   width: 10vw;
   height: 2.5vh;
   flex: 0 0 20%;
-  border: none;
-  border-bottom: 2px solid red;
-  box-shadow: 5px 5px 2.5px rgb(130, 130, 130);
+  border-style: solid;
 }
 
 .createForm input[type="submit"] {
   border: none;
   background-color: #50c878;
   font-family: "Open Sans", sans-serif;
-  color: rgb(255, 255, 255);
+  color: white;
   font-size: 0.75vw;
   width: 4vw;
   cursor: pointer;
-  border-radius: 12px;
-  box-shadow: 5px 5px 2.5px rgb(130, 130, 130);
-}
-.createForm input[type="submit"]:hover {
-  border: none;
-  background-color: rgb(255, 255, 255);
-  font-family: "Open Sans", sans-serif;
-  color: #50c878;
-  border: 2px solid #50c878;
-  font-size: 0.75vw;
-  width: 4vw;
-  cursor: pointer;
-  border-radius: 12px;
 }
 
 .createForm .secondLine {
   margin-top: 1vh;
-  width: 200px;
-}
-.rangeOutput {
-  -webkit-appearance: none;
-  appearance: none;
 }
