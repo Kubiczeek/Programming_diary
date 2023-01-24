@@ -2,6 +2,10 @@ body {
   position: relative;
 }
 
+button {
+  cursor: pointer;
+}
+
 .main {
   font-family: "Open Sans", sans-serif;
   width: 60vw;
@@ -43,4 +47,46 @@ body {
   opacity: 0.2;
   width: 60vw;
   height: 0.3vh;
+}
+
+.filterAndSort {
+  display: inline-block;
+}
+
+.SortButton {
+  background-color: #04aa6d;
+  color: white;
+  padding: 0.75vh 0.75vw 0.75vh 0.75vw;
+  font-size: 0.75vw;
+  margin-top: 2vh;
+  margin-left: 1vw;
+  border: none;
+  border-radius: 0.5vh;
+}
+
+.sortAndFilter .filter {
+  display: none;
+}
+
+.filter .LanguageFilter {
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.filter {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.filter:hover .dropdown-content {
+  display: block;
 }
