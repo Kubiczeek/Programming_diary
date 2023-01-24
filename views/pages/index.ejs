@@ -18,7 +18,7 @@
 	<link rel="stylesheet" href="css/card.css">
 	<script src="js/CardFunctions.js"></script>
 	<script src="js/Programmer.js"></script>
-	<script src="/js/Filter.js"></script>
+	<script src="/js/FilterSort.js"></script>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap');
 	</style>
@@ -115,6 +115,13 @@
 					<%=programmer.name%>
 				</option>
 				<%})%>
+		</select>
+		<select id="programmer" class="filterAndSort" onchange="handleSort(this)">
+			<option value="none" selected>Select sort criteria (none)</option>
+			<option value="Date">Sort by: Date</option>
+			<option value="Timespent">Sort by: Time spent</option>
+			<option value="Rating">Sort by: Rating</option>
+			<option value="Language">Sort by: Language</option>
 		</select>
 		<div class="divider"></div>
 		<% Objects.forEach(element=> {%>

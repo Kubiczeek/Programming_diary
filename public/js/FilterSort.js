@@ -1,3 +1,157 @@
+function sortRating() {
+  const all = [...document.getElementsByClassName("record")];
+  all.sort((a, b) => {
+    if (
+      a
+        .querySelector(".rating")
+        .textContent.replace(/\t/g, "")
+        .replace(/\n/g, "")
+        .split("/")[0] >
+      b
+        .querySelector(".rating")
+        .textContent.replace(/\t/g, "")
+        .replace(/\n/g, "")
+        .split("/")[0]
+    ) {
+      return -1;
+    }
+
+    if (
+      a
+        .querySelector(".rating")
+        .textContent.replace(/\t/g, "")
+        .replace(/\n/g, "")
+        .split("/")[0] <
+      b
+        .querySelector(".rating")
+        .textContent.replace(/\t/g, "")
+        .replace(/\n/g, "")
+        .split("/")[0]
+    ) {
+      return 1;
+    }
+
+    return 0;
+  });
+  const main = document.querySelector(".main");
+  for (let item of document.querySelectorAll(".record")) {
+    main.removeChild(item);
+  }
+  all.forEach((item) => {
+    main.append(item);
+  });
+}
+
+function sortTimespent() {
+  const all = [...document.getElementsByClassName("record")];
+  all.sort((a, b) => {
+    if (
+      a
+        .querySelector(".timespent")
+        .textContent.replace(/\t/g, "")
+        .replace(/\n/g, "") >
+      b
+        .querySelector(".timespent")
+        .textContent.replace(/\t/g, "")
+        .replace(/\n/g, "")
+    ) {
+      return -1;
+    }
+
+    if (
+      a
+        .querySelector(".timespent")
+        .textContent.replace(/\t/g, "")
+        .replace(/\n/g, "") <
+      b
+        .querySelector(".timespent")
+        .textContent.replace(/\t/g, "")
+        .replace(/\n/g, "")
+    ) {
+      return 1;
+    }
+
+    return 0;
+  });
+  const main = document.querySelector(".main");
+  for (let item of document.querySelectorAll(".record")) {
+    main.removeChild(item);
+  }
+  all.forEach((item) => {
+    main.append(item);
+  });
+}
+
+function sortLanguage() {
+  const all = [...document.getElementsByClassName("record")];
+  all.sort((a, b) =>
+    a
+      .querySelector(".language")
+      .textContent.toUpperCase()
+      .replace(/\t/g, "")
+      .replace(/\n/g, "")
+      .localeCompare(
+        b
+          .querySelector(".language")
+          .textContent.toUpperCase()
+          .replace(/\t/g, "")
+          .replace(/\n/g, "")
+      )
+  );
+  const main = document.querySelector(".main");
+  for (let item of document.querySelectorAll(".record")) {
+    main.removeChild(item);
+  }
+  all.forEach((item) => {
+    main.append(item);
+  });
+}
+
+function sortDate() {
+  const all = [...document.getElementsByClassName("record")];
+  all.sort((a, b) => {
+    const dateInfo = a
+      .querySelector(".date")
+      .textContent.replace(/\t/g, "")
+      .replace(/\n/g, "")
+      .split("-");
+    const currentDate = new Date(dateInfo[0], dateInfo[1], dateInfo[2]);
+    const dateInfo2 = b
+      .querySelector(".date")
+      .textContent.replace(/\t/g, "")
+      .replace(/\n/g, "")
+      .split("-");
+    const currentDate2 = new Date(dateInfo2[0], dateInfo2[1], dateInfo2[2]);
+    if (currentDate.getTime() > currentDate2.getTime()) return -1;
+    if (currentDate.getTime() < currentDate2.getTime()) return 1;
+    return 0;
+  });
+  const main = document.querySelector(".main");
+  for (let item of document.querySelectorAll(".record")) {
+    main.removeChild(item);
+  }
+  all.forEach((item) => {
+    main.append(item);
+  });
+}
+
+function handleSort(x) {
+  switch (x.value) {
+    case "Rating":
+      sortRating();
+      break;
+    case "Timespent":
+      sortTimespent();
+      break;
+    case "Language":
+      sortLanguage();
+      break;
+    case "Date":
+      sortDate();
+      break;
+  }
+}
+
 function filterLanguage() {
   const all = [...document.getElementsByClassName("record")];
   let filterSubject = document.getElementById("LanguageId").value;
