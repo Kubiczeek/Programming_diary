@@ -7,7 +7,7 @@ const {
   saveJSON,
 } = require("./public/js/FileSystem");
 const app = express();
-const port = process.env.PORT || 8080;
+const port = 80;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
