@@ -18,7 +18,8 @@
 }
 
 .createForm input,
-#programmer {
+#programmer,
+#category {
   border-radius: 0.5vh;
   width: 10vw;
   height: 2.5vh;

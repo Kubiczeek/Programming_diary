@@ -27,6 +27,8 @@ function editCard(x) {
   document.getElementById("addRecord").style.display = "block";
   document.getElementById("programmerHeader").style.display = "none";
   document.getElementById("programmerSettingsForm").style.display = "none";
+  document.getElementById("categoryHeader").style.display = "none";
+  document.getElementById("categorySettingsForm").style.display = "none";
   document.querySelector(".addRecord .divider").style.display = "none";
   var card;
   for (const c of document.getElementsByClassName("record")) {
@@ -63,6 +65,10 @@ function editCard(x) {
     .replace(/\n/g, "");
   document.getElementById("programmer").value = card
     .querySelector(".programmer")
+    .textContent.replace(/\t/g, "")
+    .replace(/\n/g, "");
+  document.getElementById("category").value = card
+    .querySelector(".category")
     .textContent.replace(/\t/g, "")
     .replace(/\n/g, "");
   var form = document.getElementById("createCardForm");

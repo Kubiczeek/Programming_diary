@@ -90,3 +90,7 @@ button {
 .filter:hover .dropdown-content {
   display: block;
 }
+
+.colorTextCategory {
+  font-size: 0.75vw;
+}

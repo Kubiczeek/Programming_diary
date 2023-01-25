@@ -273,6 +273,32 @@ function filterProgrammer(x) {
     }
   });
 }
+function filterCategory(x) {
+  const all = [...document.getElementsByClassName("record")];
+  all.forEach((card) => {
+    const category = card
+      .querySelector(".category")
+      .textContent.replace(/\t/g, "")
+      .replace(/\n/g, "");
+    if (x.value == category || x.value == "none") {
+      card.dataset.showc = 1;
+    } else {
+      card.dataset.showc = 0;
+    }
+    if (
+      card.dataset.showd == "1" &&
+      card.dataset.showt == "1" &&
+      card.dataset.showr == "1" &&
+      card.dataset.showl == "1" &&
+      card.dataset.showp == "1" &&
+      card.dataset.showc == "1"
+    ) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
 
 function filterUltra() {
   filterLanguage();

@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="css/card.css">
 	<script src="js/CardFunctions.js"></script>
 	<script src="js/Programmer.js"></script>
+	<script src="js/Category.js"></script>
 	<script src="/js/FilterSort.js"></script>
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap');
@@ -44,6 +45,14 @@
 					<% Programmers.forEach(programmer=> {%>
 						<option value="<%=programmer.name%>">
 							<%=programmer.name%>
+						</option>
+						<%})%>
+				</select>
+				<select name="category" id="category" class="secondLine">
+					<option value="" disabled selected>Select category</option>
+					<% Categories.forEach(category=> {%>
+						<option value="<%=category.name%>">
+							<%=category.name%>
 						</option>
 						<%})%>
 				</select>
@@ -79,6 +88,45 @@
 						<%})%>
 				</select>
 				<input type="submit" value="Delete" class="deleteProgrammer" id="delProg_submit" style="display: none">
+			</form>
+			<div class="divider"></div>
+			<h2 id="categoryHeader">Category Settings</h2>
+			<form class="createForm" id="categorySettingsForm" method="post" action="/category">
+				<select name="action" id="action" class="secondLine" style="display: block" onchange="onChangeCategory(this)">
+					<option value="" disabled selected>Select action</option>
+					<option value="add">Add</option>
+					<option value="edit">Edit</option>
+					<option value="delete">Delete</option>
+				</select>
+				<input type="text" name="name" class="addCategory" placeholder="Enter name of the category"
+					style="display: none" required>
+				<input type="text" name="description" class="addCategory" placeholder="Enter the description"
+					style="display: none" required>
+				<label class="addCategory colorTextCategory" for="color" style="display: none">Color:</label>
+				<input type="color" name="color" class="addCategory" style="display: none" required>
+				<input type="submit" value="Add" class="addCategory" style="display: none">
+				<select name="category" id="category" class="editCategory" required style="display: none">
+					<% Categories.forEach(category=> {%>
+						<option value="<%=category.name%>">
+							<%=category.name%>
+						</option>
+						<%})%>
+				</select>
+				<input type="text" name="name" class="editCategory" placeholder="Enter name of the category"
+					style="display: none" required>
+				<input type="text" name="description" class="editCategory" placeholder="Enter the description"
+					style="display: none" required>
+				<label class="editCategory colorTextCategory" for="color" style="display: none">Color:</label>
+				<input type="color" name="color" class="editCategory" style="display: none" required>
+				<input type="submit" value="Edit" class="editCategory" style="display: none">
+				<select name="category" id="category" class="deleteCategory" required style="display: none">
+					<% Categories.forEach(category=> {%>
+						<option value="<%=category.name%>">
+							<%=category.name%>
+						</option>
+						<%})%>
+				</select>
+				<input type="submit" value="Delete" class="deleteCategory" id="delCate_submit" style="display: none">
 			</form>
 		</div>
 		<div class="divider"></div>
@@ -116,6 +164,14 @@
 				</option>
 				<%})%>
 		</select>
+		<select id="programmer" class="filterAndSort" onchange="filterCategory(this)">
+			<option value="none" selected>Select category (none)</option>
+			<% Categories.forEach(category=> {%>
+				<option value="<%=category.name%>">
+					<%=category.name%>
+				</option>
+				<%})%>
+		</select>
 		<select id="programmer" class="filterAndSort" onchange="handleSort(this)">
 			<option value="none" selected>Select sort criteria (none)</option>
 			<option value="Date">Sort by: Date</option>
@@ -126,8 +182,8 @@
 		<div class="divider"></div>
 		<% Objects.forEach(element=> {%>
 			<%- include('../partials/card', {cardId: element.id, date: element.date, timespent: element.timespent, rating:
-				element.rating, language: element.language, description: element.description, programmer: element.programmer})
-				%>
+				element.rating, language: element.language, description: element.description, programmer: element.programmer,
+				category: element.category, categories: Categories}) %>
 				<%}); %>
 	</div>
 	</div>

@@ -2,6 +2,7 @@ const express = require("express");
 const {
   SessionLog,
   Programmer,
+  Category,
   loadJSON,
   saveJSON,
 } = require("./public/js/FileSystem");
@@ -22,7 +23,12 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   const Objects = loadJSON("data.json");
   const Programmers = loadJSON("programmers.json");
-  res.render("pages/index", { Objects: Objects, Programmers: Programmers });
+  const Categories = loadJSON("categories.json");
+  res.render("pages/index", {
+    Objects: Objects,
+    Programmers: Programmers,
+    Categories: Categories,
+  });
 });
 
 app.post("/add", (req, res) => {
@@ -34,7 +40,8 @@ app.post("/add", (req, res) => {
     body.rating,
     body.language,
     body.description,
-    body.programmer
+    body.programmer,
+    body.category
   );
   const currentJson = loadJSON("data.json");
   currentJson.push(sessionLog);
@@ -73,7 +80,8 @@ app.post("/edit", (req, res) => {
     body.rating,
     body.language,
     body.description,
-    body.programmer
+    body.programmer,
+    body.category
   );
   currentJson.push(sessionLog);
   saveJSON("data.json", currentJson);
@@ -124,6 +132,47 @@ app.post("/programmer", (req, res) => {
       saveJSON("data.json", currentJson);
       break;
   }
+  res.redirect("/");
+});
+
+app.post("/category", (req, res) => {
+  const body = req.body;
+  const jsonFile = loadJSON("categories.json");
+  const currentJson = loadJSON("data.json");
+  switch (body.action) {
+    case "add":
+      const category = new Category(body.name, body.color, body.description);
+      jsonFile.push(category);
+      break;
+    case "edit":
+      for (let item of jsonFile) {
+        if (item.name == body.category) {
+          item.name = body.name;
+          item.color = body.color;
+          item.description = body.description;
+        }
+      }
+      for (const card of currentJson) {
+        if (card.category == body.category) {
+          card.category = body.name;
+        }
+      }
+      break;
+    case "delete":
+      for (let i = 0; i < jsonFile.length; i++) {
+        if (jsonFile[i].name == body.category) {
+          jsonFile.splice(i, 1);
+        }
+      }
+      for (let i = 0; i < currentJson.length; i++) {
+        if (currentJson[i].category == body.category) {
+          currentJson[i].category = "";
+        }
+      }
+      break;
+  }
+  saveJSON("categories.json", jsonFile);
+  saveJSON("data.json", currentJson);
   res.redirect("/");
 });
 
