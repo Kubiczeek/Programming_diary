@@ -46,10 +46,20 @@
   font-size: 1vw;
 }
 
+.categoryLine {
+  margin-left: 2vw;
+}
+
+.smallerText {
+  font-size: 0.75vw;
+}
+
 .date,
 .timespent,
 .rating,
-.language {
+.language,
+.programmer,
+.category {
   font-weight: normal;
   text-decoration: underline;
   font-style: italic;
