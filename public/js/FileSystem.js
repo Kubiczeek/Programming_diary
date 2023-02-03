@@ -23,12 +23,6 @@ class SessionLog {
   }
 }
 
-class Programmer {
-  constructor(name) {
-    this.name = name;
-  }
-}
-
 class Category {
   constructor(name, color, description) {
     this.name = name;
@@ -52,7 +46,6 @@ function saveJSON(filepath = "", json = '""') {
 
 module.exports = {
   SessionLog,
-  Programmer,
   Category,
   loadJSON,
   saveJSON,

@@ -1,12 +1,10 @@
-//Zabijáci!!!
 const express = require("express");
 const {
   SessionLog,
-  Programmer,
   Category,
   loadJSON,
   saveJSON,
-} = require("./public/js/FileSystem");
+} = require("./public/js/FileSystem.js");
 const app = express();
 const port = 80;
 
@@ -22,18 +20,19 @@ app.set("views", "./views");
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  const Objects = loadJSON("data.json");
-  const Programmers = loadJSON("programmers.json");
-  const Categories = loadJSON("categories.json");
+  const data = loadJSON("../json/data.json");
+  const data2 = loadJSON("../json/categories.json");
+  const data3 = loadJSON("../json/programmers.json");
   res.render("pages/index", {
-    Objects: Objects,
-    Programmers: Programmers,
-    Categories: Categories,
+    data: data,
+    categories: data2,
+    programmers: data3,
   });
 });
 
-app.post("/add", (req, res) => {
+app.post("/addRecord", (req, res) => {
   const body = req.body;
+  const data = loadJSON("../json/data.json");
   const sessionLog = new SessionLog(
     Date.now(),
     body.date,
@@ -42,111 +41,94 @@ app.post("/add", (req, res) => {
     body.language,
     body.description,
     body.programmer,
-    body.category
+    Array.isArray(body.category) ? body.category : [body.category]
   );
-  const currentJson = loadJSON("data.json");
-  currentJson.push(sessionLog);
-  saveJSON("data.json", currentJson);
+  data.push(sessionLog);
+  saveJSON("../json/data.json", data);
   res.redirect("/");
 });
 
-app.post("/delete", (req, res) => {
-  const currentJson = loadJSON("data.json");
+app.post("/deleteRecord", (req, res) => {
+  const currentJson = loadJSON("../json/data.json");
   for (let i = 0; i < currentJson.length; i++) {
     if (currentJson[i].id == req.body.id) {
       currentJson.splice(i, 1);
-      saveJSON("data.json", currentJson);
+      saveJSON("../json/data.json", currentJson);
       return;
     }
   }
   res.redirect("/");
 });
 
-app.post("/edit", (req, res) => {
-  const currentJson = loadJSON("data.json");
-  //delete
-  for (let i = 0; i < currentJson.length; i++) {
-    if (currentJson[i].id == req.body.id) {
-      currentJson.splice(i, 1);
-      saveJSON("data.json", currentJson);
-      return;
-    }
-  }
-  //adding
+app.post("/editRecord", (req, res) => {
+  const currentJson = loadJSON("../json/data.json");
   const body = req.body;
-  const sessionLog = new SessionLog(
-    Date.now(),
-    body.date,
-    body.timespent,
-    body.rating,
-    body.language,
-    body.description,
-    body.programmer,
-    body.category
-  );
-  currentJson.push(sessionLog);
-  saveJSON("data.json", currentJson);
+  console.log(currentJson, body);
+  currentJson.forEach((jsonObject) => {
+    if (jsonObject.id == body.id) {
+      jsonObject.date = body.date;
+      jsonObject.timespent = body.timespent;
+      jsonObject.rating = body.rating;
+      jsonObject.language = body.language;
+      jsonObject.description = body.description;
+      jsonObject.programmer = body.programmer;
+      jsonObject.category = Array.isArray(body.category)
+        ? body.category
+        : [body.category];
+    }
+  });
+  saveJSON("../json/data.json", currentJson);
   res.redirect("/");
 });
 
 app.post("/programmer", (req, res) => {
+  const currentJson = loadJSON("../json/data.json");
+  const programmersJson = loadJSON("../json/programmers.json");
   const body = req.body;
-  const jsonFile = loadJSON("programmers.json");
-  const currentJson = loadJSON("data.json");
-  switch (body.action) {
-    case "add":
-      const programmerA = new Programmer(body.name);
-      jsonFile.push(programmerA);
-      saveJSON("programmers.json", jsonFile);
+  switch (body.settings) {
+    case "Add":
+      programmersJson.push(body.name);
+      saveJSON("../json/programmers.json", programmersJson);
       break;
-    case "edit":
-      for (let item of jsonFile) {
-        if (item.name == body.programmer) {
-          item.name = body.name;
-        }
+    case "Edit":
+      currentJson.forEach((record) => {
+        if (record.programmer === body.programmer)
+          record.programmer = body.name;
+      });
+      const index = programmersJson.indexOf(body.programmer);
+      if (~index) {
+        programmersJson[index] = body.name;
       }
-      for (const card of currentJson) {
-        if (card.programmer == body.programmer) {
-          card.programmer = body.name;
-        }
-      }
-      saveJSON("programmers.json", jsonFile);
-      saveJSON("data.json", currentJson);
+      saveJSON("../json/programmers.json", programmersJson);
+      saveJSON("../json/data.json", currentJson);
       break;
-    case "delete":
-      let array = [];
-      for (let i = 0; i < jsonFile.length; i++) {
-        if (jsonFile[i].name == body.programmer) {
-          jsonFile.splice(i, 1);
-        }
-      }
-      for (let i = 0; i < currentJson.length; i++) {
-        if (currentJson[i].programmer == body.programmer) {
-          array.push(i);
-        }
-      }
-      array.reverse();
-      for (let i = 0; i < array.length; i++) {
-        currentJson.splice(array[i], 1);
-      }
-      saveJSON("programmers.json", jsonFile);
-      saveJSON("data.json", currentJson);
+    case "Delete":
+      const newProgrammers = programmersJson.filter((programmer) => {
+        return body.programmer !== programmer;
+      });
+      const newRecordsJson = currentJson.filter((record) => {
+        return record.programmer !== body.programmer;
+      });
+      console.log(newRecordsJson, newProgrammers);
+      saveJSON("../json/programmers.json", newProgrammers);
+      saveJSON("../json/data.json", newRecordsJson);
       break;
   }
   res.redirect("/");
 });
 
 app.post("/category", (req, res) => {
+  const currentJson = loadJSON("../json/data.json");
+  const categoriesJson = loadJSON("../json/categories.json");
   const body = req.body;
-  const jsonFile = loadJSON("categories.json");
-  const currentJson = loadJSON("data.json");
-  switch (body.action) {
-    case "add":
+  switch (body.settings) {
+    case "Add":
       const category = new Category(body.name, body.color, body.description);
-      jsonFile.push(category);
+      categoriesJson.push(category);
+      saveJSON("../json/categories.json", categoriesJson);
       break;
-    case "edit":
-      for (let item of jsonFile) {
+    case "Edit":
+      for (let item of categoriesJson) {
         if (item.name == body.category) {
           item.name = body.name;
           item.color = body.color;
@@ -154,26 +136,32 @@ app.post("/category", (req, res) => {
         }
       }
       for (const card of currentJson) {
-        if (card.category == body.category) {
-          card.category = body.name;
-        }
+        const filteredX = card.category.filter((category) => {
+          return category !== body.category;
+        });
+        console.log(filteredX, card.category);
+        if (JSON.stringify(filteredX) != JSON.stringify(card.category))
+          filteredX.push(body.name);
+        card.category = filteredX;
       }
+      console.log(currentJson);
+      saveJSON("../json/data.json", currentJson);
+      saveJSON("../json/categories.json", categoriesJson);
       break;
-    case "delete":
-      for (let i = 0; i < jsonFile.length; i++) {
-        if (jsonFile[i].name == body.category) {
-          jsonFile.splice(i, 1);
-        }
-      }
-      for (let i = 0; i < currentJson.length; i++) {
-        if (currentJson[i].category == body.category) {
-          currentJson[i].category = "";
-        }
-      }
+    case "Delete":
+      const newCategoryJson = categoriesJson.filter((category) => {
+        return body.category !== category.name;
+      });
+      currentJson.forEach((jsonObject) => {
+        const x = jsonObject.category.filter((category) => {
+          return body.category !== category;
+        });
+        jsonObject.category = x;
+      });
+      saveJSON("../json/data.json", currentJson);
+      saveJSON("../json/categories.json", newCategoryJson);
       break;
   }
-  saveJSON("categories.json", jsonFile);
-  saveJSON("data.json", currentJson);
   res.redirect("/");
 });
 

@@ -1,0 +1,64 @@
+<script src="js/FilterAndSort.js"></script>
+<div class="filterAndSort">
+	<svg xmlns="http://www.w3.org/2000/svg" width="22.202" height="22.202" class="svg-btn" viewBox="0 0 22.202 22.202"
+		onclick="ShowFilter()">
+		<path id="Icon_awesome-filter" data-name="Icon awesome-filter"
+			d="M21.161,0H1.042A1.042,1.042,0,0,0,.306,1.777L8.326,9.8v8.936a1.041,1.041,0,0,0,.444.853l3.469,2.428a1.041,1.041,0,0,0,1.638-.853V9.8L21.9,1.777A1.042,1.042,0,0,0,21.161,0Z" />
+	</svg>
+	<svg xmlns="http://www.w3.org/2000/svg" width="23.578" height="22.202" class="svg-btn" viewBox="0 0 23.578 22.202"
+		onclick="ShowSort()">
+		<path id="Icon_material-sort" data-name="Icon material-sort"
+			d="M4.5,31.2h7.859V27.5H4.5ZM4.5,9v3.7H28.078V9Zm0,12.951H20.218v-3.7H4.5Z"
+			transform="translate(-4.5 -9)" />
+	</svg>
+	<div class="dropdown-content-filter" style="display: none;">
+		<h4>Filter:</h4>
+		<div class="LanguageFilter">
+			<label for="LanguageId">By language : </label>
+			<input type="text" id="LanguageId" placeholder="Enter language" onkeyup="filterUltra()">
+		</div>
+		<div class="RatingFilter">
+			<label for="RatingFromFilterId">By rating : </label>
+			<input id="RatingFromFilterId" placeholder="Enter lowest value" min="1" max="5" onkeyup="filterUltra()">
+			<input id="RatingToFilterId" placeholder="Enter highest value" min="1" max="5" onkeyup="filterUltra()">
+		</div>
+		<div class="TimeFilter">
+			<label for="TimeFromFilterId">By time spent: </label>
+			<input id="TimeFromFilterId" placeholder="Enter lowest value" onkeyup="filterUltra()">
+			<input id="TimeToFilterId" placeholder="Enter highest value" onkeyup="filterUltra()">
+		</div>
+		<div class="DateFilter">
+			<label for="DateFromFilterId">By date : </label>
+			<input id="DateFromFilterId" type="date" onchange="filterUltra()">
+			<input id="DateToFilterId" type="date" onchange="filterUltra()">
+		</div>
+		<div class="ProgrammerFilter">
+			<label for="CategoryFromFilterId">By categories : </label>
+			<select required name="programmer" id="addProgrammer" onchange="filterProgrammer(this)">
+				<option value="none" selected>Choose programmer</option>
+				<% programmers.forEach((programmer)=> {%>
+					<option value=<%=programmer%>><%=programmer%>
+					</option>
+					<% }) %>
+			</select>
+		</div>
+		<div class="CategoryFilter">
+			<label for="CategoryFromFilterId">By categories : </label>
+			<select multiple name="category" id="addCategory" onchange="filterCategory(this)">
+				<option value="" selected disabled>Choose Categories</option>
+				<option value="" class="optionSmallerText" disabled>Hold CTRL to select more options</option>
+				<% categories.forEach((category)=> {%>
+					<option style="color: <%= category.color %>" value=<%=category.name%>><%=category.name%>
+					</option>
+					<% }) %>
+			</select>
+		</div>
+	</div>
+	<div class="dropdown-content-sort" style="display: none;">
+		<h4>Sort:</h4>
+		<button onclick="sortLanguage()">Language</button>
+		<button onclick="sortRating()">Rating</button>
+		<button onclick="sortTimespent()">Time spent</button>
+		<button onclick="sortDate()">Date</button>
+	</div>
+</div>
