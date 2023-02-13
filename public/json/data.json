@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1675285023966,
+    "date": "2023-02-10",
+    "timespent": "21",
+    "rating": "1",
+    "language": "eznr",
+    "description": "654bdf",
+    "programmer": "Jacob",
+    "category": ["Frontend", "oplak"]
+  },
+  {
+    "id": 167528023966,
+    "date": "2023-02-10",
+    "timespent": "21",
+    "rating": "1",
+    "language": "eznr",
+    "description": "654bdf",
+    "programmer": "Jacob",
+    "category": ["oplak"]
+  }
+]

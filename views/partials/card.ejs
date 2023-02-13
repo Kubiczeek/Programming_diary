@@ -1,28 +1,75 @@
 <div class="record">
-  <div class="left">
-    <div class="header">
-      <span class="cardId" id="cardId"> <%= cardId%> </span>
-      <span class="recordChild"
-        >Date: <span class="date"> <%= date%> </span></span
-      >
-      <span class="recordChild"
-        >Time spent: <span class="timespent"> <%= timespent%> </span></span
-      >
-      <span class="recordChild"
-        >Rating: <span class="rating"> <%= rating%> </span></span
-      >
-      <span class="recordChild"
-        >Language:
-        <span class="language" id="recordLanguage"> <%= language%> </span></span
-      >
+  <div class="head">
+    <div class="info">
+      <div class="date">
+        <img src="img/Calendar.png" alt="Calendar" />
+        <span class="input">
+          <%=card.date.split("-").reverse().join('-')%>
+        </span>
+      </div>
+      <div class="timespent">
+        <img src="img/Clock.png" alt="Clock" />
+        <span class="input"> <%=card.timespent%> </span>
+      </div>
+      <div class="rating">
+        <img src="img/Star.png" alt="Star" />
+        <span class="input"> <%=card.rating + "/5" %> </span>
+      </div>
+      <div class="language">
+        <img src="img/Code.png" alt="Code" />
+        <span class="input"> <%=card.language%> </span>
+      </div>
+      <div class="programmer">
+        <img src="img/User.png" alt="User" />
+        <span class="input"> <%=card.programmer%> </span>
+      </div>
+      <div class="buttons">
+        <button
+          class="buttonWithImageSmall2 editRec"
+          onclick='showPopUp("Edit Record", "/editRecord", this)'
+        >
+          <svg
+            class="edit"
+            xmlns="http://www.w3.org/2000/svg"
+            width="15.767"
+            height="15.767"
+            viewBox="0 0 15.767 15.767"
+          >
+            <path
+              id="Pencil"
+              d="M11.825,0,9.854,1.971,13.8,5.913l1.971-1.971ZM7.883,3.942,0,11.825v3.942H3.942l7.883-7.883Z"
+            />
+          </svg>
+        </button>
+        <button
+          class="buttonWithImageSmall2 deleteRec"
+          onclick="deleteCard(this)"
+        >
+          <svg
+            class="delete"
+            xmlns="http://www.w3.org/2000/svg"
+            width="14.712"
+            height="18.108"
+            viewBox="0 0 14.712 18.108"
+          >
+            <path
+              id="Bin"
+              d="M5.63,7.587V18.9a1.135,1.135,0,0,0,1.132,1.132H16.948A1.135,1.135,0,0,0,18.079,18.9V7.587H5.63Zm3.4,10.186H7.894V9.85H9.026Zm2.263,0H10.157V9.85h1.132Zm2.263,0H12.421V9.85h1.132Zm2.263,0H14.684V9.85h1.132ZM18.362,4.191H14.684V2.777a.851.851,0,0,0-.849-.849H9.874a.851.851,0,0,0-.849.849V4.191H5.348A.851.851,0,0,0,4.5,5.04V6.455H19.211V5.04A.851.851,0,0,0,18.362,4.191Zm-4.81,0h-3.4V3.074h3.4V4.191Z"
+              transform="translate(-4.499 -1.928)"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
-    <div class="footer">
-      <span class="description"> <%= description%> </span>
+    <div class="tags">
+      <% if(card.category) {card.category.forEach((tag)=>
+      {categories.forEach((ct)=> { if (tag == ct.name) {%> <%-
+      include("../partials/tag", {name: (tag.length> 10) ? tag.slice(0, 8-1) +
+      '...' : tag, color: ct.color}) %> <% }})});} %>
     </div>
   </div>
-
-  <div class="right">
-    <button class="edit" onclick="editCard(this)">Edit</button>
-    <button class="delete" onclick="deleteCard(this)">Del</button>
+  <div class="footer">
+    <span class="recordId" style="display: none"> <%=card.id%> </span>
+    <p class="description"><%=card.description%></p>
   </div>
 </div>
