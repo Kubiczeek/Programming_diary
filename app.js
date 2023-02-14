@@ -18,7 +18,34 @@ app.use("/img", express.static(__dirname + "public/img"));
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
-
+app.post("/", (req, res) => {
+  const name = req.body.name;
+  const password = req.body.Password;
+  const data = loadJSON("../json/data.json");
+  const data2 = loadJSON("../json/categories.json");
+  const data3 = loadJSON("../json/programmers.json");
+  const LoginData = loadJSON("../json/login.json");
+  console.log(name);
+  console.log(password);
+  let logged = false;
+  for (let i = 0; i < LoginData.length; i++) {
+    if (LoginData[i].name == name) {
+      if (LoginData[i].password == password) {
+        logged = true;
+      }
+    }
+  }
+  if (logged == true) {
+    console.log("ssuccess!");
+    res.render("pages/index", {
+      data: data,
+      categories: data2,
+      programmers: data3,
+    });
+  } else {
+    console.error("Wrong password or name");
+  }
+});
 app.get("/", (req, res) => {
   const data = loadJSON("../json/data.json");
   const data2 = loadJSON("../json/categories.json");
