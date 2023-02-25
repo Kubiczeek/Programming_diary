@@ -1,0 +1,58 @@
+<div id="overlayDiv" style="display: block">
+  <div class="login">
+    <div class="topPop">
+      <h2 class="popupTitle">login</h2>
+    </div>
+    <div class="popUpForm">
+      <form class="LoginForm" method="post" action="/main">
+        <input type="text" name="name" id="LoginName" placeholder="Name" />
+        <input
+          type="text"
+          name="Password"
+          id="LoginPassword"
+          placeholder="Password"
+        />        <label for="remember">remember me ?</label>
+        <input name="ghost" id="ghost" type="text"  style="display: none;">
+        <input type="checkbox" id="remember" name="remember" onclick="handleClick(this)">
+        <button id="submitButton" class="addRecord">Login</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    if(localStorage.getItem('ClientID')==null){
+      localStorage.setItem('ClientID', makeid(8));
+    }
+    if(sessionStorage.getItem('TempClientID')==null){
+      sessionStorage.setItem('TempClientID', makeid(8));
+      console.log(sessionStorage.getItem('TempClientID'))
+
+    }
+    var id = document.getElementById("ghost");
+      id.value = window.localStorage.getItem('ClientID')
+  function handleClick(cb) {
+    if(cb.checked){
+      var id = document.getElementById("ghost");
+      id.value = window.localStorage.getItem('ClientID')
+      console.log( id.value)
+    }else{
+      var id = document.getElementById("ghost");
+      id.value = window.localStorage.getItem('ClientID')
+      console.log( id.value) 
+    }
+  }
+
+    console.log("lmao")
+
+    function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
+  </script>
+</div>
