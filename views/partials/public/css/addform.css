@@ -1,0 +1,51 @@
+.addRecord h2 {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.25vw;
+}
+
+.createForm {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 1vh;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.createForm span {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9vw;
+}
+
+.createForm input,
+#programmer,
+#category {
+  border-radius: 0.5vh;
+  width: 10vw;
+  height: 2.5vh;
+  flex: 0 0 20%;
+  border-style: solid;
+}
+
+.createForm input[type="submit"] {
+  border: none;
+  background-color: #50c878;
+  font-family: "Open Sans", sans-serif;
+  color: white;
+  font-size: 0.75vw;
+  width: 4vw;
+  cursor: pointer;
+}
+
+.createForm .secondLine {
+  margin-top: 1vh;
+}
+
+#editProg_submit {
+  background-color: rgb(89, 197, 230);
+  cursor: pointer;
+}
+
+#delProg_submit {
+  background-color: rgb(240, 77, 77);
+}

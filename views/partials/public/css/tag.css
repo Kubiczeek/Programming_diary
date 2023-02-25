@@ -1,0 +1,18 @@
+.tag {
+  margin-top: 0.9259259259259258vh;
+  margin-right: 0.78125vw;
+  background-color: red;
+  color: white;
+  display: inline-block;
+  border-radius: 0.625vw;
+  width: 4.114583333333334vw;
+  height: 2.0370370370370368vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tagName {
+  font-weight: 600;
+  font-size: 0.625vw;
+}

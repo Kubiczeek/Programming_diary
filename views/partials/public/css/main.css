@@ -1,0 +1,90 @@
+* {
+  border: none;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+body {
+  background-color: #ecf0f3;
+}
+
+button {
+  cursor: pointer;
+}
+
+.main {
+  background-color: rgba(255, 255, 255, 1);
+  font-family: "Open Sans", sans-serif;
+  width: 61.5625vw;
+  height: 74.26vh;
+  position: absolute;
+  left: 19.21875vw;
+  top: 12.87vh;
+  display: flexbox;
+  border-radius: 1.40625vw;
+  overflow: auto;
+}
+
+.addRecord {
+  background-color: #287fff;
+  border: none;
+  border-radius: 0.572916vw;
+  width: 34.375vw;
+  height: 6.39vh;
+  margin-left: 13.59375vw;
+  margin-top: 2.5vh;
+  cursor: pointer;
+}
+
+.addRecord img {
+  width: 1.97864583vw;
+  height: 3.517592592592593vh;
+}
+.Account {
+  background-color: rgba(255, 255, 255, 1);
+  width: 2.916666666666667vw;
+  height: 5.185185185185185vh;
+  border: none;
+  border-radius: 0.625vw;
+  margin-left: 8.90625vw;
+  -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+}
+.Account img {
+  width: 1, 7vw;
+  height: 3vh;
+}
+
+.buttonWithImageSmall {
+  background-color: rgba(255, 255, 255, 1);
+  width: 2.916666666666667vw;
+  height: 5.185185185185185vh;
+  border: none;
+  border-radius: 0.625vw;
+  margin-left: 8.90625vw;
+  -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  -moz-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
+}
+
+.buttonWithImageSmall .cog {
+  width: 1.7390625vw;
+  height: 3.22962962962963vh;
+  margin-top: 0.45vh;
+  margin-left: 0.2vw;
+}
+
+.botSide {
+  margin-left: 2.96875vw;
+}
+
+.botSide .filterAndSort {
+  margin-left: 1.1979166666666667vw;
+  margin-bottom: 1.694444444444444vh;
+  margin-top: 2.824074074074074vh;
+}
+
+.botSide .filterAndSort svg {
+  margin-right: 1.072916666666667vw;
+}
