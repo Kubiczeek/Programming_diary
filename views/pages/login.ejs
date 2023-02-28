@@ -28,7 +28,7 @@
 
     }
     var id = document.getElementById("ghost");
-      id.value = window.localStorage.getItem('ClientID')
+      id.value = window.sessionStorage.getItem('TempClientID')
   function handleClick(cb) {
     if(cb.checked){
       var id = document.getElementById("ghost");
@@ -36,7 +36,7 @@
       console.log( id.value)
     }else{
       var id = document.getElementById("ghost");
-      id.value = window.localStorage.getItem('ClientID')
+      id.value = window.sessionStorage.getItem('TempClientID')
       console.log( id.value) 
     }
   }

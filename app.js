@@ -43,27 +43,27 @@ if(remember == "on"){
         
         logged = true;
         req.session.token = ClientID;
-        break
+        
       }
     }
-    if (login.name == name && login.password == password) {
+    if(logged){break}
+    if (login.userName == name && login.password == password) {
       logged = true;
-      if(remember){
-        login['saved_Devices'].push(ClientID)
-        saveJSON("../json/login.json", LoginData);
+      login['saved_Devices'].push(ClientID)
+      saveJSON("../json/login.json", LoginData);
+    req.session.token = ClientID;
 
-      }
     }
     
   }
 
   if (logged == true) {
-    res.render("pages/index", {
+    res.redirect("/index", {
       data: data,
       categories: data2,
       programmers: data3,
     });
-  } else {    res.render("pages/login", {
+  } else {    res.redirect("/login", {
     data: data,
     categories: data2,
     programmers: data3,
@@ -85,13 +85,13 @@ app.get("/", (req, res) => {
 
     
   }
-  if(logged){        res.render("pages/index", {
+  if(logged){        res.redirect("/index", {
     data: data,
     categories: data2,
     programmers: data3,
 
   });}else{
-  res.render("pages/login", {
+  res.redirect("/login", {
     data: data,
 
   });}
@@ -133,7 +133,7 @@ app.post("/login", (req, res) => {
   }
   if (logged == true) {
     console.log("ssuccess!");
-    res.redirect("partials/login", {
+    res.redirect("/login", {
       data: data,
       categories: data2,
       programmers: data3,

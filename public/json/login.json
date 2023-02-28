@@ -1,1 +1,4 @@
-[{"id":1,"name":"AMik","password":"1234","saved_Devices":["WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz","WIdwAZGz"]},{"id":2,"name":"Kuba","password":"4321","saved_Devices":[]}]
+[
+{"id":1,"admin":true,"userName":"AMik","surname":"Mikulič","name":"Adam","email":"mikulic.tablet.kluci@gmail.com","password":"1234","saved_Devices":["WIdwAZGz","WIdwAZGz","pYtnctbi","pYtnctbi","GZQvyo10"]},
+{"id":2,"admin":false,"userName":"Kuba","surname":"","name":"","email":"","password":"4321","saved_Devices":[]}
+]
