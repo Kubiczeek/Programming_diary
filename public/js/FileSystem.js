@@ -2,38 +2,36 @@ const fs = require("fs");
 const path = require("path");
 
 class SessionLog {
-  constructor(
-    id,
-    date,
-    timespent,
-    rating,
-    language,
-    description,
-    programmer,
-    category
-  ) {
+  constructor(id, date, timespent, rating, language, description, category) {
     this.id = id;
     this.date = date;
     this.timespent = timespent;
     this.rating = rating;
     this.language = language;
     this.description = description;
-    this.programmer = programmer || "none";
     this.category = category || "";
   }
 }
 
-class Programmer {
-  constructor(name) {
-    this.name = name;
-  }
-}
-
-class Category {
-  constructor(name, color, description) {
+class Tag {
+  constructor(id, name, color, description) {
+    this.id = id;
     this.name = name;
     this.color = color;
     this.description = description;
+  }
+}
+
+class User {
+  constructor(id, admin, username, surname, name, email, password) {
+    this.id = id;
+    this.admin = admin;
+    this.username = username;
+    this.surname = surname;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.saved_Devices = [];
   }
 }
 
@@ -52,8 +50,8 @@ function saveJSON(filepath = "", json = '""') {
 
 module.exports = {
   SessionLog,
-  Programmer,
-  Category,
+  Tag,
+  User,
   loadJSON,
   saveJSON,
 };

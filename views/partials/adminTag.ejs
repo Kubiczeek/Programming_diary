@@ -1,0 +1,20 @@
+<div class="admin-tag">
+	<div class="admin-tagLeft">
+		<div class="admin-tagTopInfo">
+			<span class="admin-tagName">Name: <%=tag.name%></span>
+			<span class="admin-tagColor" style="color: <%=tag.color%>;">Color: <%=tag.color%></span>
+			<span class="admin-tagId">Id: <%=tag.id%></span>
+		</div>
+		<div class="admin-tagDescription">
+			<span class="admin-tagDescriptionText">
+				<%=tag.description%>
+			</span>
+		</div>
+	</div>
+	<div class="admin-tagRight">
+		<img class="admin-tagPencil" src="img/Pencil.png" alt="Pencil" style="cursor: pointer;"
+			onclick="showTagPopUp('Edit Tag', 'Finish', '/admin/editTag', this)">
+		<img class="admin-tagBin" src="img/Bin.png" alt="Bin" style="cursor: pointer;"
+			onclick="deleteTagQuestion(<%=tag.id%>)">
+	</div>
+</div>

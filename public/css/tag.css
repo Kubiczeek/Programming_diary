@@ -1,0 +1,15 @@
+.tag {
+  width: 89px;
+  height: 24px;
+  background-color: red;
+  border-radius: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tagText {
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}

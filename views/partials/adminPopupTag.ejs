@@ -1,0 +1,27 @@
+<div id="overlayDiv4" style="display: none">
+	<div class="popup">
+		<div class="topPop">
+			<button id="arrowLeftButton" onclick="returnToAdmin()"><img class="arrow" src="img/Arrow.png"
+					alt="Settings"></button>
+			<h2 class="popupTitle">Add Tag</h2>
+		</div>
+		<div class="popUpForm">
+			<form class="addRecordForm" method="post" action="/admin/addTag">
+				<div class="addDate">
+					<input required type="text" name="name" id="addtagname" placeholder="Enter tag name">
+				</div>
+				<div class="addTimespent">
+					<label for="addtagcolor">Select color</label>
+					<input required type="color" name="color" id="addtagcolor">
+				</div>
+				<div class="addLanguage">
+					<input required type="text" name="description" id="addtagdescription" placeholder="Enter tag description">
+				</div>
+				<div class="addId" style="display: none;">
+					<input class="id" type="text" name="id">
+				</div>
+				<button id="submitButton" class="addRecord"><span class="submitText">Create</span></button>
+			</form>
+		</div>
+	</div>
+</div>

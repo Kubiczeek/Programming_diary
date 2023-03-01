@@ -1,0 +1,56 @@
+<div class="record" data-showd="1" data-showt="1" data-showr="1" data-showl="1" data-showp="1" data-showc="1">
+	<div class="leftRecord">
+		<div class="upperRecord">
+			<div class="info">
+				<div class="date">
+					<img src="img/Calendar.png" alt="Calendar" />
+					<span class="dateText">
+						<%=date.split("-").reverse().join(".")%>
+					</span>
+				</div>
+				<div class="timespent">
+					<img src="img/Clock.png" alt="Clock" />
+					<span class="timespentText">
+						<%=timespent%> min
+					</span>
+				</div>
+				<div class="rating">
+					<img src="img/Star.png" alt="Star" />
+					<span class="ratingText">
+						<%=rating%>/5
+					</span>
+				</div>
+				<div class="language">
+					<img src="img/Code.png" alt="Code" />
+					<span class="languageText">
+						<%=language%>
+					</span>
+				</div>
+			</div>
+			<div class="tags">
+				<!-- Property "text" can't have more than 11 characters, if it does, it will be shortened -->
+				<%categories.forEach((category)=> { %>
+					<% if(category !=null && tags.find(({name})=> name === category)){ %>
+						<%- include('./tag.ejs', {color: tags.find(({name})=> name === category).color , text: category }) %>
+							<% }%>
+								<% })%>
+			</div>
+		</div>
+		<div class="description">
+			<span class="descriptionText">
+				<%=description%>
+			</span>
+			<span class="recordId" style="display: none;">
+				<%=id%>
+			</span>
+		</div>
+	</div>
+	<div class="rightRecord">
+		<img src="img/hamburger.png" alt="hamburger" class="recordHamburger" />
+		<div class="recordMenu">
+			<span class="editRecord" onclick="showPopUp('Edit Record', 'Confirm Edit','/editRecord',this)">Edit</span>
+			<a style="cursor: pointer;" onclick="exportRecord(<%=id%>)">Export</a>
+			<span onclick="deleteRecordQuestion(<%=id%>)">Delete</span>
+		</div>
+	</div>
+</div>

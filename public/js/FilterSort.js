@@ -3,12 +3,12 @@ function sortRating() {
   all.sort((a, b) => {
     if (
       a
-        .querySelector(".rating")
+        .querySelector(".ratingText")
         .textContent.replace(/\t/g, "")
         .replace(/\n/g, "")
         .split("/")[0] >
       b
-        .querySelector(".rating")
+        .querySelector(".ratingText")
         .textContent.replace(/\t/g, "")
         .replace(/\n/g, "")
         .split("/")[0]
@@ -18,12 +18,12 @@ function sortRating() {
 
     if (
       a
-        .querySelector(".rating")
+        .querySelector(".ratingText")
         .textContent.replace(/\t/g, "")
         .replace(/\n/g, "")
         .split("/")[0] <
       b
-        .querySelector(".rating")
+        .querySelector(".ratingText")
         .textContent.replace(/\t/g, "")
         .replace(/\n/g, "")
         .split("/")[0]
@@ -33,7 +33,7 @@ function sortRating() {
 
     return 0;
   });
-  const main = document.querySelector(".main");
+  const main = document.querySelector(".records");
   for (let item of document.querySelectorAll(".record")) {
     main.removeChild(item);
   }
@@ -47,11 +47,11 @@ function sortTimespent() {
   all.sort((a, b) => {
     if (
       a
-        .querySelector(".timespent")
+        .querySelector(".timespentText")
         .textContent.replace(/\t/g, "")
         .replace(/\n/g, "") >
       b
-        .querySelector(".timespent")
+        .querySelector(".timespentText")
         .textContent.replace(/\t/g, "")
         .replace(/\n/g, "")
     ) {
@@ -60,11 +60,11 @@ function sortTimespent() {
 
     if (
       a
-        .querySelector(".timespent")
+        .querySelector(".timespentText")
         .textContent.replace(/\t/g, "")
         .replace(/\n/g, "") <
       b
-        .querySelector(".timespent")
+        .querySelector(".timespentText")
         .textContent.replace(/\t/g, "")
         .replace(/\n/g, "")
     ) {
@@ -73,7 +73,7 @@ function sortTimespent() {
 
     return 0;
   });
-  const main = document.querySelector(".main");
+  const main = document.querySelector(".records");
   for (let item of document.querySelectorAll(".record")) {
     main.removeChild(item);
   }
@@ -86,19 +86,19 @@ function sortLanguage() {
   const all = [...document.getElementsByClassName("record")];
   all.sort((a, b) =>
     a
-      .querySelector(".language")
+      .querySelector(".languageText")
       .textContent.toUpperCase()
       .replace(/\t/g, "")
       .replace(/\n/g, "")
       .localeCompare(
         b
-          .querySelector(".language")
+          .querySelector(".languageText")
           .textContent.toUpperCase()
           .replace(/\t/g, "")
           .replace(/\n/g, "")
       )
   );
-  const main = document.querySelector(".main");
+  const main = document.querySelector(".records");
   for (let item of document.querySelectorAll(".record")) {
     main.removeChild(item);
   }
@@ -111,22 +111,22 @@ function sortDate() {
   const all = [...document.getElementsByClassName("record")];
   all.sort((a, b) => {
     const dateInfo = a
-      .querySelector(".date")
+      .querySelector(".dateText")
       .textContent.replace(/\t/g, "")
       .replace(/\n/g, "")
-      .split("-");
+      .split(".");
     const currentDate = new Date(dateInfo[0], dateInfo[1], dateInfo[2]);
     const dateInfo2 = b
-      .querySelector(".date")
+      .querySelector(".dateText")
       .textContent.replace(/\t/g, "")
       .replace(/\n/g, "")
-      .split("-");
+      .split(".");
     const currentDate2 = new Date(dateInfo2[0], dateInfo2[1], dateInfo2[2]);
     if (currentDate.getTime() > currentDate2.getTime()) return -1;
     if (currentDate.getTime() < currentDate2.getTime()) return 1;
     return 0;
   });
-  const main = document.querySelector(".main");
+  const main = document.querySelector(".records");
   for (let item of document.querySelectorAll(".record")) {
     main.removeChild(item);
   }
@@ -149,16 +149,18 @@ function handleSort(x) {
     case "Date":
       sortDate();
       break;
+    default:
+      break;
   }
 }
 
 function filterLanguage() {
   const all = [...document.getElementsByClassName("record")];
-  let filterSubject = document.getElementById("LanguageId").value;
+  let filterSubject = document.getElementById("FilterLanguage").value;
   all.forEach((card) => {
     if (
       !card
-        .querySelector(".language")
+        .querySelector(".languageText")
         .textContent.replace(/\t/g, "")
         .replace(/\n/g, "")
         .toLowerCase()
@@ -171,18 +173,18 @@ function filterLanguage() {
   });
 }
 function filterRating() {
-  const fromRatingCheck = 1;
+  const fromRatingCheck = 0;
   const toRatingCheck = 5;
   let fromRating =
-    parseInt(document.getElementById("RatingFromFilterId").value) ||
+    parseInt(document.getElementById("FilterRating").value.split(":")[0]) ||
     fromRatingCheck;
   let toRating =
-    parseInt(document.getElementById("RatingToFilterId").value) ||
+    parseInt(document.getElementById("FilterRating").value.split(":")[1]) ||
     toRatingCheck;
   const all = [...document.getElementsByClassName("record")];
   all.forEach((card) => {
     const currentRating = card
-      .querySelector(".rating")
+      .querySelector(".ratingText")
       .textContent.replace(/\t/g, "")
       .replace(/\n/g, "")
       .split("/")[0];
@@ -197,16 +199,18 @@ function filterTime() {
   const fromRatingCheck = 0;
   const toRatingCheck = 99999999;
   let fromRating =
-    parseInt(document.getElementById("TimeFromFilterId").value) ||
+    parseInt(document.getElementById("FilterTimespent").value.split(":")[0]) ||
     fromRatingCheck;
   let toRating =
-    parseInt(document.getElementById("TimeToFilterId").value) || toRatingCheck;
+    parseInt(document.getElementById("FilterTimespent").value.split(":")[1]) ||
+    toRatingCheck;
   const all = [...document.getElementsByClassName("record")];
   all.forEach((card) => {
     const currentRating = card
-      .querySelector(".timespent")
+      .querySelector(".timespentText")
       .textContent.replace(/\t/g, "")
-      .replace(/\n/g, "");
+      .replace(/\n/g, "")
+      .split(" ")[0];
     if (currentRating >= fromRating && currentRating <= toRating) {
       card.dataset.showt = 1;
     } else {
@@ -215,8 +219,8 @@ function filterTime() {
   });
 }
 function filterDate() {
-  let fromDate = document.getElementById("DateFromFilterId").value;
-  let toDate = document.getElementById("DateToFilterId").value;
+  let fromDate = document.getElementById("FilterFromDate").value;
+  let toDate = document.getElementById("FilterToDate").value;
   if (!toDate || !fromDate) {
   } else {
     const fromDateInfo = fromDate.split("-");
@@ -224,7 +228,7 @@ function filterDate() {
     fromDate = new Date(fromDateInfo[0], fromDateInfo[1], fromDateInfo[2]);
     toDate = new Date(toDateInfo[0], toDateInfo[1], toDateInfo[2]);
   }
-
+  console.log(fromDate, toDate);
   const all = [...document.getElementsByClassName("record")];
   all.forEach((card) => {
     if (!toDate || !fromDate) {
@@ -232,10 +236,11 @@ function filterDate() {
       return;
     }
     const dateInfo = card
-      .querySelector(".date")
+      .querySelector(".dateText")
       .textContent.replace(/\t/g, "")
       .replace(/\n/g, "")
-      .split("-");
+      .split(".")
+      .reverse();
     const currentDate = new Date(dateInfo[0], dateInfo[1], dateInfo[2]);
     if (
       currentDate.getTime() >= fromDate.getTime() &&
@@ -247,40 +252,19 @@ function filterDate() {
     }
   });
 }
-
-function filterProgrammer(x) {
-  const all = [...document.getElementsByClassName("record")];
-  all.forEach((card) => {
-    const programmer = card
-      .querySelector(".programmer")
-      .textContent.replace(/\t/g, "")
-      .replace(/\n/g, "");
-    if (x.value == programmer || x.value == "none") {
-      card.dataset.showp = 1;
-    } else {
-      card.dataset.showp = 0;
-    }
-    if (
-      card.dataset.showd == "1" &&
-      card.dataset.showt == "1" &&
-      card.dataset.showr == "1" &&
-      card.dataset.showl == "1" &&
-      card.dataset.showp == "1"
-    ) {
-      card.style.display = "flex";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
 function filterCategory(x) {
   const all = [...document.getElementsByClassName("record")];
   all.forEach((card) => {
-    const category = card
-      .querySelector(".category")
-      .textContent.replace(/\t/g, "")
-      .replace(/\n/g, "");
-    if (x.value == category || x.value == "none") {
+    let categories = [];
+    card.querySelectorAll(".tagText").forEach((tag) => {
+      categories.push(tag.textContent.replace(/\t/g, "").replace(/\n/g, ""));
+    });
+    if (
+      categories.includes(
+        x.value.length > 11 ? x.value.substring(0, 8).concat("...") : x.value
+      ) ||
+      x.value == "None"
+    ) {
       card.dataset.showc = 1;
     } else {
       card.dataset.showc = 0;
@@ -312,7 +296,8 @@ function filterUltra() {
       card.dataset.showt == "1" &&
       card.dataset.showr == "1" &&
       card.dataset.showl == "1" &&
-      card.dataset.showp == "1"
+      card.dataset.showp == "1" &&
+      card.dataset.showc == "1"
     ) {
       card.style.display = "flex";
     } else {

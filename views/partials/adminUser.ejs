@@ -1,0 +1,21 @@
+<div class="admin-user">
+	<div class="admin-userLeft">
+		<div class="admin-userTop">
+			<span class="admin-userfname">First Name: <%=user.name%></span>
+			<span class="admin-usersname">Surname: <%=user.surname%></span>
+			<span class="admin-useruname">Username: <%=user.username%></span>
+			<span class="admin-useradmin">Administrator: <%=user.admin==true ? 'Yes' : 'No' %></span>
+		</div>
+		<div class="admin-userBot">
+			<span class="admin-useremail">Email: <%=user.email%></span>
+			<span class="admin-userid">Id: <%=user.id%></span>
+			<span class="admin-userpassword">Password: <%=user.password%></span>
+		</div>
+	</div>
+	<div class="admin-userRight">
+		<img style="cursor: pointer" class="admin-tagPencil" src="img/Pencil.png" alt="Pencil"
+			onclick="showPopUp('Edit User', 'Finish', '/admin/editUser', this)">
+		<img style="cursor: pointer" class="admin-tagBin" src="img/Bin.png" alt="Bin"
+			onclick="deleteUserQuestion(<%=user.id%>)">
+	</div>
+</div>

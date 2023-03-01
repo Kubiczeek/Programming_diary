@@ -2,191 +2,111 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet" href="css/main.css">
-	<title>Programming Diary</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>Programming diary</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/record.css" />
+  <link rel="stylesheet" href="css/tag.css" />
+  <link rel="stylesheet" href="css/popup.css" />
+  <link rel="stylesheet" href="css/notification.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    rel="stylesheet" />
 </head>
 
 <body>
-	<link rel="stylesheet" href="css/addform.css">
-	<link rel="stylesheet" href="css/card.css">
-	<script src="js/CardFunctions.js"></script>
-	<script src="js/Programmer.js"></script>
-	<script src="js/Category.js"></script>
-	<script src="/js/FilterSort.js"></script>
-	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap');
-	</style>
-	<div class="main" id="main">
-		<button id="addButton"
-			onclick="if (document.getElementById('addRecord').style.display == 'none') { document.getElementById('addRecord').style.display = 'block'; document.getElementById('formHeader').innerHTML = 'Add Record'; document.getElementById('submit').value = 'Submit' } else { document.getElementById('addRecord').style.display = 'none' }">
-			<img src="img/PlusIcon.png" alt="Plus Sign">
-		</button>
-		<div class="addRecord" id="addRecord" style="display: none;">
-			<h2 id="formHeader">Add Record</h2>
-			<form id="createCardForm" class="createForm" method="post" action="/add">
-				<input value="" name="date" type="date" id="date" required>
-				<input value="" name="timespent" type="number" id="timespent" placeholder="Enter the Time spent (mins)" min="1"
-					required>
-				<input value="" name="language" type="text" id="language" placeholder="Enter the Language" required>
-				<input value="" name="rating" type="range" id="rating" min="1" max="5"
-					oninput="document.getElementById('rangeOutput').textContent = 'Rating: ' + this.value">
-				<span id="rangeOutput">Rating: 3</span>
-				<input value="" name="description" class="secondLine" id="description" type="text"
-					placeholder="Enter the description" required>
-				<select name="programmer" id="programmer" class="secondLine" required>
-					<option value="" disabled selected>Select programmer</option>
-					<% Programmers.forEach(programmer=> {%>
-						<option value="<%=programmer.name%>">
-							<%=programmer.name%>
-						</option>
-						<%})%>
-				</select>
-				<select name="category" id="category" class="secondLine">
-					<option value="" disabled selected>Select category</option>
-					<% Categories.forEach(category=> {%>
-						<option value="<%=category.name%>">
-							<%=category.name%>
-						</option>
-						<%})%>
-				</select>
-				<input class="secondLine" type="submit" value="Submit" id="submit">
-			</form>
-			<div class="divider"></div>
-			<h2 id="programmerHeader">Programmer Settings</h2>
-			<form class="createForm" id="programmerSettingsForm" method="post" action="/programmer">
-				<select name="action" id="action" class="secondLine" style="display: block" onchange="onChange(this)">
-					<option value="" disabled selected>Select action</option>
-					<option value="add">Add</option>
-					<option value="edit">Edit</option>
-					<option value="delete">Delete</option>
-				</select>
-				<input type="text" name="name" class="addProgrammer" placeholder="Enter programmer's name" style="display: none"
-					required>
-				<input type="submit" value="Add" class="addProgrammer" style="display: none">
-				<select name="programmer" id="programmer" class="editProgrammer" required style="display: none">
-					<% Programmers.forEach(programmer=> {%>
-						<option value="<%=programmer.name%>">
-							<%=programmer.name%>
-						</option>
-						<%})%>
-				</select>
-				<input type="text" name="name" class="editProgrammer" required style="display: none"
-					placeholder="Enter programmer's NEW name">
-				<input type="submit" value="Edit" class="editProgrammer" id="editProg_submit" style="display: none">
-				<select name="programmer" id="programmer" class="deleteProgrammer" required style="display: none">
-					<% Programmers.forEach(programmer=> {%>
-						<option value="<%=programmer.name%>">
-							<%=programmer.name%>
-						</option>
-						<%})%>
-				</select>
-				<input type="submit" value="Delete" class="deleteProgrammer" id="delProg_submit" style="display: none">
-			</form>
-			<div class="divider"></div>
-			<h2 id="categoryHeader">Category Settings</h2>
-			<form class="createForm" id="categorySettingsForm" method="post" action="/category">
-				<select name="action" id="action" class="secondLine" style="display: block" onchange="onChangeCategory(this)">
-					<option value="" disabled selected>Select action</option>
-					<option value="add">Add</option>
-					<option value="edit">Edit</option>
-					<option value="delete">Delete</option>
-				</select>
-				<input type="text" name="name" class="addCategory" placeholder="Enter name of the category"
-					style="display: none" required>
-				<input type="text" name="description" class="addCategory" placeholder="Enter the description"
-					style="display: none" required>
-				<label class="addCategory colorTextCategory" for="color" style="display: none">Color:</label>
-				<input type="color" name="color" class="addCategory" style="display: none" required>
-				<input type="submit" value="Add" class="addCategory" style="display: none">
-				<select name="category" id="category" class="editCategory" required style="display: none">
-					<% Categories.forEach(category=> {%>
-						<option value="<%=category.name%>">
-							<%=category.name%>
-						</option>
-						<%})%>
-				</select>
-				<input type="text" name="name" class="editCategory" placeholder="Enter name of the category"
-					style="display: none" required>
-				<input type="text" name="description" class="editCategory" placeholder="Enter the description"
-					style="display: none" required>
-				<label class="editCategory colorTextCategory" for="color" style="display: none">Color:</label>
-				<input type="color" name="color" class="editCategory" style="display: none" required>
-				<input type="submit" value="Edit" class="editCategory" style="display: none">
-				<select name="category" id="category" class="deleteCategory" required style="display: none">
-					<% Categories.forEach(category=> {%>
-						<option value="<%=category.name%>">
-							<%=category.name%>
-						</option>
-						<%})%>
-				</select>
-				<input type="submit" value="Delete" class="deleteCategory" id="delCate_submit" style="display: none">
-			</form>
-		</div>
-		<div class="divider"></div>
-		<div class="filterAndSort">
-			<div class="filter">
-				<button class="SortButton">Filter</button>
-				<div class="dropdown-content">
-					<div class="LanguageFilter">
-						<label for="LanguageId">By language : </label>
-						<input type="text" id="LanguageId" onkeyup="filterUltra()">
-					</div>
-					<div class="RatingFilter">
-						<label for="RatingFromFilterId">By rating : </label>
-						<input id="RatingFromFilterId" onkeyup="filterUltra()" placeholder="Enter lowest value" min="1" max="5">
-						<input id="RatingToFilterId" onkeyup="filterUltra()" placeholder="Enter highest value" min="1" max="5">
-					</div>
-					<div class="TimeFilter">
-						<label for="TimeFromFilterId">By time : </label>
-						<input id="TimeFromFilterId" onkeyup="filterUltra()" placeholder="Enter lowest value">
-						<input id="TimeToFilterId" onkeyup="filterUltra()" placeholder="Enter highest value">
-					</div>
-					<div class="DateFilter">
-						<label for="DateFromFilterId">by date : </label>
-						<input id="DateFromFilterId" type="date" onchange="filterUltra()">
-						<input id="DateToFilterId" type="date" onchange="filterUltra()">
-					</div>
-				</div>
-			</div>
-		</div>
-		<select id="programmer" class="filterAndSort" onchange="filterProgrammer(this)">
-			<option value="none" selected>Select programmer (none)</option>
-			<% Programmers.forEach(programmer=> {%>
-				<option value="<%=programmer.name%>">
-					<%=programmer.name%>
-				</option>
-				<%})%>
-		</select>
-		<select id="programmer" class="filterAndSort" onchange="filterCategory(this)">
-			<option value="none" selected>Select category (none)</option>
-			<% Categories.forEach(category=> {%>
-				<option value="<%=category.name%>">
-					<%=category.name%>
-				</option>
-				<%})%>
-		</select>
-		<select id="programmer" class="filterAndSort" onchange="handleSort(this)">
-			<option value="none" selected>Select sort criteria (none)</option>
-			<option value="Date">Sort by: Date</option>
-			<option value="Timespent">Sort by: Time spent</option>
-			<option value="Rating">Sort by: Rating</option>
-			<option value="Language">Sort by: Language</option>
-		</select>
-		<div class="divider"></div>
-		<% Objects.forEach(element=> {%>
-			<%- include('../partials/card', {cardId: element.id, date: element.date, timespent: element.timespent, rating:
-				element.rating, language: element.language, description: element.description, programmer: element.programmer,
-				category: element.category, categories: Categories}) %>
-				<%}); %>
-	</div>
-	</div>
+  <script src="js/MenuFunctions.js"></script>
+  <script src="js/RecordFunctions.js"></script>
+  <script src="js/FilterSort.js"></script>
+  <%- include("../partials/popup.ejs") %>
+    <%- include("../partials/delNotifi.ejs") %>
+      <div class="main">
+        <div class="top">
+          <div class="hamburger">
+            <img src="img/hamburger.png" alt="hamburger" id="hamburgerMenu" />
+            <div class="hambMenu">
+              <a style="cursor: pointer;" href="/admin">Admin</a>
+              <span style="cursor: pointer;" onclick="importRecord()">Import Record</span>
+              <span style="cursor: pointer;">Logout</span>
+            </div>
+          </div>
+          <div class="title">
+            <span>Welcome Jacob, Your Records:</span>
+          </div>
+        </div>
+        <div class="bot">
+          <div class="settings">
+            <div class="recordsButtons">
+              <div class="sortFiter">
+                <img src="img/Filter.png" id="filter" alt="Filter" onclick="showFilter()" />
+                <div>
+                  <label class="labelSort" for="sort">Sorted by: </label>
+                  <select name="sort" id="sort" onchange="handleSort(this)">
+                    <option value="None">None</option>
+                    <option value="Rating">Rating</option>
+                    <option value="Timespent">Timespent</option>
+                    <option value="Language">Language</option>
+                    <option value="Date">Date</option>
+                  </select>
+                </div>
+              </div>
+              <div class="add">
+                <button id="addButton" onclick="showPopUp('Create Record', 'Create', '/addRecord', this)">
+                  <img src="img/Plus.png" id="addPlusIcon" alt="Add" />
+                  <span>Add</span>
+                </button>
+              </div>
+            </div>
+            <div class="filterShow" style="display: none">
+              <div class="filterInput">
+                <span>From</span>
+                <input class="filterInputField" type="date" name="" id="FilterFromDate" onchange="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>To</span>
+                <input class="filterInputField" type="date" name="" id="FilterToDate" onchange="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>Timespent</span>
+                <input placeholder="From:To (in minutes)" class="filterInputField" type="text" name=""
+                  id="FilterTimespent" onkeyup="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>Rating</span>
+                <input placeholder="From:To" class="filterInputField" id="FilterRating" type="text"
+                  onkeyup="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>Language</span>
+                <input placeholder="Enter language" class="filterInputField" type="text" name="" id="FilterLanguage"
+                  onkeyup="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>Tag</span>
+                <select class="filterInputField" name="" id="" onchange="filterCategory(this)">
+                  <option value="None">None</option>
+                  <% tags.forEach((tag)=> {%>
+                    <option value="<%=tag.name%>" style="color: <%=tag.color%>;">
+                      <%=tag.name%>
+                    </option>
+                    <% }) %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="records">
+            <% records.forEach((record)=> { %>
+              <%- include('../partials/record.ejs', {id: record.id, date: record.date, timespent: record.timespent,
+                rating: record.rating, language: record.language, description: record.description, programmer:
+                record.programmer, categories: record.category}) %>
+                <% }) %>
+          </div>
+        </div>
+      </div>
 </body>
 
 </html>

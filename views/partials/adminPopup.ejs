@@ -1,0 +1,36 @@
+<div id="overlayDiv3" style="display: none;">
+	<div class="popup">
+		<div class="topPop">
+			<button id="arrowLeftButton" onclick="returnToAdmin()"><img class="arrow" src="img/Arrow.png"
+					alt="Settings"></button>
+			<h2 class="popupTitle">Add User</h2>
+		</div>
+		<div class="popUpForm">
+			<form class="addRecordForm" method="post" action="/admin/addUser">
+				<div class="addDate">
+					<input required type="text" name="fName" id="addname" placeholder="Enter the first name">
+				</div>
+				<div class="addTimespent">
+					<input required type="text" name="surname" id="addsurname" placeholder="Enter the surname">
+				</div>
+				<div class="addLanguage">
+					<input required type="text" name="username" id="addusername" placeholder="Enter the username">
+				</div>
+				<div class="addLanguage">
+					<input required type="email" name="email" id="addemail" placeholder="Enter the email">
+				</div>
+				<div class="addLanguage">
+					<input required type="text" name="password" id="addpassword" placeholder="Enter the password">
+				</div>
+				<div class="Administrator">
+					<label for="adminYes">Administrator?</label>
+					<input type="checkbox" name="adminYes" id="adminYes">
+				</div>
+				<div class="addId" style="display: none;">
+					<input class="id" type="text" name="id">
+				</div>
+				<button id="submitButton" class="addRecord"><span class="submitText">Create</span></button>
+			</form>
+		</div>
+	</div>
+</div>
