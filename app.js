@@ -1,3 +1,4 @@
+const { json } = require("express");
 const express = require("express");
 var session = require('express-session')
 
@@ -98,43 +99,57 @@ app.get("/", (req, res) => {
   
     });}
 });
-app.get("/LogAdmin", (req, res) => {
+app.get("/logadmin", (req, res) => {
   const data = loadJSON("../json/data.json");
   const data2 = loadJSON("../json/categories.json");
   const data3 = loadJSON("../json/programmers.json");
   const LoginData = loadJSON("../json/login.json");
 
   ClientID= req.session.token 
+var doIt = false
 
   LoginData.forEach((jsonObject) => {
-    if (jsonObject.saved_Devices ==ClientID) {
-        if(jsonObject.admin == true){
-          res.redirect('/main')
-        }else{
+    console.log( ClientID+" =?= "+jsonObject.saved_Devices)
+    jsonObject.saved_Devices.forEach((saved)=> {
+      if(jsonObject.admin == true){
+        doIt = true
+        console.log("doit truw")
+      }
+    })
 
-        }
-    }else{
-      res.render("views/public/login.ejs", {
-        data: data,
-        categories: data2,
-        programmers: data3,
-      });
-    }
+      
   });
+if(doIt == true){
+  console.log("kakd")
+  res.redirect("/main");
+  // sem sem admin sem sem admin sem sem admin sem sem admin sem sem admin sem sem admin sem sem admin sem sem adminsem sem admin sem sem admin sem sem admin sem sem admin sem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem admin
+}else {
+  console.log("----")
+  res.redirect("/login");
+
+ 
+}
+});
+app.get('/login',(req,res)=>{
+  const data = loadJSON("../json/data.json");
+  const data2 = loadJSON("../json/categories.json");
+  const data3 = loadJSON("../json/programmers.json");
+  const LoginData = loadJSON("../json/login.json");
+
+  res.render('pages/login', {
+  
+    });
 
 });
 app.get("/logout", (req, res) => {
+  const data = loadJSON("../json/data.json");
+  const data2 = loadJSON("../json/categories.json");
+  const data3 = loadJSON("../json/programmers.json");
+  const LoginData = loadJSON("../json/login.json");
 
 
     req.session.token = null
-      res.render("views/public/login.ejs", {
-        data: data,
-        categories: data2,
-        programmers: data3,
-      });
-    
- 
-
+    res.redirect("/login");
 });
 app.post("/addRecord", (req, res) => {
   const body = req.body;
