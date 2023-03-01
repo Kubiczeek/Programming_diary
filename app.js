@@ -58,12 +58,13 @@ if(remember == "on"){
   }
 
   if (logged == true) {
-    res.redirect("/index", {
+      res.render("pages/index", {
       data: data,
       categories: data2,
       programmers: data3,
     });
-  } else {    res.redirect("/login", {
+  } else {  
+    res.render("pages/login", {
     data: data,
     categories: data2,
     programmers: data3,
@@ -85,16 +86,17 @@ app.get("/", (req, res) => {
 
     
   }
-  if(logged){        res.redirect("/index", {
-    data: data,
-    categories: data2,
-    programmers: data3,
-
-  });}else{
-  res.redirect("/login", {
-    data: data,
-
-  });}
+  if(logged){
+    res.render("pages/index", {
+      data: data,
+      categories: data2,
+      programmers: data3,
+    });
+  }else{
+    res.render("pages/login", {
+      data: data,
+  
+    });}
 });
 
 app.post("/addRecord", (req, res) => {
@@ -133,7 +135,7 @@ app.post("/login", (req, res) => {
   }
   if (logged == true) {
     console.log("ssuccess!");
-    res.redirect("/login", {
+    res.render("views/public/login.ejs", {
       data: data,
       categories: data2,
       programmers: data3,
@@ -259,6 +261,102 @@ app.post("/category", (req, res) => {
   res.redirect("/");
 });
 
+
+app.delete('/users/:Uid/records/:Rid',(req,res)=>{
+  const id = req.params;
+  console.log(id);
+  const currentJson = loadJSON("../json/data.json");
+  console.log("R Id  _ "+id.Rid)
+  for (let i = 0; i < currentJson.length; i++) {
+    console.log("json ID _ "+currentJson[i].id)
+    if (currentJson[i].id == id.Rid) {
+      currentJson.splice(i, 1);
+   console.log("found")
+      res.status(200).send();
+      saveJSON("../json/data.json", currentJson);
+      return;
+    }
+  }
+  console.log("lmao")
+
+    res.status(404).send();
+  
+
+});
+app.get('/users/:Uid/records/:Rid',(req,res)=>{
+  const id = req.params;
+  
+  const currentJson = loadJSON("../json/data.json");
+  for (let i = 0; i < currentJson.length; i++) {
+    if (currentJson[i].id == id.Rid) {
+      
+      console.log(currentJson[i])
+      res.send(currentJson[i])
+     
+      return;
+    }
+  }
+    res.status(404).send();
+  
+
+});
+app.get('/users/:Uid/records/',(req,res)=>{
+  const id = req.params;
+  var Complete = [];
+  const currentJson = loadJSON("../json/data.json");
+  for (let i = 0; i < currentJson.length; i++) {
+    if (currentJson[i].userId == id.Uid) {
+      
+      console.log(currentJson[i])
+     Complete.push(currentJson[i])
+     
+      
+    }
+  }
+  res.send(Complete)
+    res.status(404).send();
+  
+
+});
+app.put('/users/:Uid/records/:Rid',(req,res)=>{
+  const id = req.params;
+  
+  const currentJson = loadJSON("../json/data.json");
+
+  sessionLog= req.body;
+  currentJson.forEach((jsonObject) => {
+    if (jsonObject.id ==      req.body.id) {
+      jsonObject.date =       req.body.date;
+      jsonObject.userId =       id.Uid;
+
+      jsonObject.timespent =  req.body.timespent;
+      jsonObject.rating =     req.body.rating;
+      jsonObject.language =   req.body.language;
+      jsonObject.description =req.body.description;
+      jsonObject.programmer = req.body.programmer;
+      jsonObject.category = Array.isArray(req.body.category)
+        ? req.body.category
+        : [req.body.category];
+    }
+  });
+  saveJSON("../json/data.json", currentJson);
+ res.status(200).send()
+
+
+
+});
+app.post('/users/:Uid/records/',(req,res)=>{
+  const id = req.params;
+
+  const currentJson = loadJSON("../json/data.json");
+  req.body.userId = id.Uid;
+  currentJson.push(req.body);
+  saveJSON("../json/data.json", currentJson);
+  res.send(req.body)
+    
+  
+
+});
 app.listen(port, () =>
   console.log(`App listening on http://localhost:${port} \n(Port: ${port})`)
 );
