@@ -98,7 +98,44 @@ app.get("/", (req, res) => {
   
     });}
 });
+app.get("/LogAdmin", (req, res) => {
+  const data = loadJSON("../json/data.json");
+  const data2 = loadJSON("../json/categories.json");
+  const data3 = loadJSON("../json/programmers.json");
+  const LoginData = loadJSON("../json/login.json");
 
+  ClientID= req.session.token 
+
+  LoginData.forEach((jsonObject) => {
+    if (jsonObject.saved_Devices ==ClientID) {
+        if(jsonObject.admin == true){
+          res.redirect('/main')
+        }else{
+
+        }
+    }else{
+      res.render("views/public/login.ejs", {
+        data: data,
+        categories: data2,
+        programmers: data3,
+      });
+    }
+  });
+
+});
+app.get("/logout", (req, res) => {
+
+
+    req.session.token = null
+      res.render("views/public/login.ejs", {
+        data: data,
+        categories: data2,
+        programmers: data3,
+      });
+    
+ 
+
+});
 app.post("/addRecord", (req, res) => {
   const body = req.body;
   const data = loadJSON("../json/data.json");
