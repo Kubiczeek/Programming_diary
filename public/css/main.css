@@ -64,6 +64,10 @@ button {
   height: 35px;
 }
 
+.Hamburger:hover > .hambMenu {
+  display: flex;
+}
+
 #hamburgerMenu:hover + .hambMenu {
   display: flex;
 }
