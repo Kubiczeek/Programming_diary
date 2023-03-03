@@ -2,14 +2,24 @@ const fs = require("fs");
 const path = require("path");
 
 class SessionLog {
-  constructor(id, date, timespent, rating, language, description, category) {
+  constructor(
+    id,
+    date,
+    time_spent,
+    rating,
+    programming_language,
+    description,
+    userId,
+    category
+  ) {
     this.id = id;
     this.date = date;
-    this.timespent = timespent;
+    this.time_spent = time_spent;
     this.rating = rating;
-    this.language = language;
+    this.programming_language = programming_language;
     this.description = description;
-    this.category = category || "";
+    this.userId = userId;
+    this.category = category || [""];
   }
 }
 
@@ -48,10 +58,47 @@ function saveJSON(filepath = "", json = '""') {
   );
 }
 
+function convertJsonToCsv(jsonData) {
+  const objectsArray = jsonData;
+
+  const columnHeaders = Object.keys(objectsArray[0]);
+  const csvRows = [];
+
+  csvRows.push(columnHeaders.join(","));
+
+  for (const object of objectsArray) {
+    const values = columnHeaders.map((header) => object[header]);
+    csvRows.push(values.join(","));
+  }
+
+  return csvRows.join("\n");
+}
+
+function convertCsvToJson(csvData) {
+  const lines = csvData.split("\n");
+  const headers = lines[0].split(",");
+  const result = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const obj = {};
+    const currentLine = lines[i].split(",");
+
+    for (let j = 0; j < headers.length; j++) {
+      obj[headers[j]] = currentLine[j];
+    }
+
+    result.push(obj);
+  }
+
+  return JSON.stringify(result);
+}
+
 module.exports = {
   SessionLog,
   Tag,
   User,
   loadJSON,
   saveJSON,
+  convertJsonToCsv,
+  convertCsvToJson,
 };

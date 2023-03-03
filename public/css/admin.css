@@ -17,8 +17,8 @@ button {
 }
 
 .admin {
-  width: 1900px;
-  height: 920px;
+  width: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
 }

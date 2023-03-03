@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/login.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    rel="stylesheet" />
+  <title>Programming diary</title>
+</head>
+
+<body>
+  <div class="main">
+    <div class="mainRectangle">
+      <div class="mainInfo">
+        <span class="infoTitle">Welcome Back</span>
+        <span class="infoDescription">Enter your credentials to access your account</span>
+      </div>
+      <div class="mainLoginForm">
+        <form action="/login" class="loginForm" method="post">
+          <input type="text" name="name" id="loginId" class="idInput" placeholder="Enter your username/email">
+          <input type="password" name="Password" id="loginPassowrd" class="passwordInput"
+            placeholder="Enter your password">
+          <div class="remoemberMeContainer">
+            <label for="remember" class="rememberText">Remember me?</label>
+            <input type="checkbox" name="remember" id="rememberCheckbox">
+          </div>
+          <input name="ghost" id="ghost" type="text" style="display: none;">
+          <button class="signButton">Sign In</button>
+        </form>
+      </div>
+    </div>
+    <div class="passwordText">
+      <span class="forgotText">Forgot your password?</span> <span class="resetText">Contact the IT team</span>
+    </div>
+  </div>
+  <script>
+    if (localStorage.getItem('ClientID') == null) {
+      localStorage.setItem('ClientID', makeid(8));
+    }
+    if (sessionStorage.getItem('TempClientID') == null) {
+      sessionStorage.setItem('TempClientID', makeid(8));
+      console.log(sessionStorage.getItem('TempClientID'))
+
+    }
+    var id = document.getElementById("ghost");
+    id.value = window.sessionStorage.getItem('TempClientID')
+    function handleClick(cb) {
+      if (cb.checked) {
+        var id = document.getElementById("ghost");
+        id.value = window.localStorage.getItem('ClientID')
+        console.log(id.value)
+      } else {
+        var id = document.getElementById("ghost");
+        id.value = window.sessionStorage.getItem('TempClientID')
+        console.log(id.value)
+      }
+    }
+
+    function makeid(length) {
+      let result = '';
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const charactersLength = characters.length;
+      let counter = 0;
+      while (counter < length) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
+      }
+      return result;
+    }
+  </script>
+</body>
+
+</html>

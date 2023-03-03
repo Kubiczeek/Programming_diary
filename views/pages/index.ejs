@@ -26,16 +26,19 @@
     <%- include("../partials/delNotifi.ejs") %>
       <div class="main">
         <div class="top">
-          <div class="hamburger">
-            <img src="img/hamburger.png" alt="hamburger" id="hamburgerMenu" />
+          <div class="Hamburger">
+            <img src="img/Hamburger.png" alt="hamburger" id="hamburgerMenu" />
             <div class="hambMenu">
-              <a style="cursor: pointer;" href="/admin">Admin</a>
-              <span style="cursor: pointer;" onclick="importRecord()">Import Record</span>
-              <span style="cursor: pointer;">Logout</span>
+              <%if (admin==true){%>
+                <a style="cursor: pointer;" href="/admin">Admin</a>
+                <%}%>
+                  <span style="cursor: pointer;" onclick="importRecord()">Import Record</span>
+                  <a style="cursor: pointer;" href="/exportRecord">Export Records</a>
+                  <a style="cursor: pointer;" href="/logout">Logout</a>
             </div>
           </div>
           <div class="title">
-            <span>Welcome Jacob, Your Records:</span>
+            <span>Welcome <%=name%>, Your Records:</span>
           </div>
         </div>
         <div class="bot">
@@ -100,9 +103,9 @@
           </div>
           <div class="records">
             <% records.forEach((record)=> { %>
-              <%- include('../partials/record.ejs', {id: record.id, date: record.date, timespent: record.timespent,
-                rating: record.rating, language: record.language, description: record.description, programmer:
-                record.programmer, categories: record.category}) %>
+              <%- include('../partials/record.ejs', {id: record.id, date: record.date, timespent: record.time_spent,
+                rating: record.rating, language: record.programming_language, description: record.description,
+                programmer: record.programmer, categories: record.category}) %>
                 <% }) %>
           </div>
         </div>

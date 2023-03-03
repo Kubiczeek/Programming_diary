@@ -65,7 +65,7 @@ function importRecord() {
   const fileInput = document.createElement("input");
   fileInput.type = "file";
   fileInput.name = "file";
-  fileInput.accept = ".json";
+  fileInput.accept = ".csv";
   fileInput.onchange = handleFileInputChange;
   fileInput.click();
 }
