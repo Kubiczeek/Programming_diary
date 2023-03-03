@@ -1,1 +1,8 @@
-[]
+[
+  { "name": "xx", "color": "#000000", "description": "webpoin" },
+  {
+    "name": "Third",
+    "color": "#00ff00",
+    "description": "Yes, this one is like really bad"
+  }
+]

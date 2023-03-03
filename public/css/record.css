@@ -1,0 +1,121 @@
+.recordHamburger {
+  width: 28px;
+  height: 28px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.record {
+  width: 90%;
+  height: 170px;
+  border: 3px solid #e6ecf9;
+  border-radius: 18px;
+  display: flex;
+}
+
+.leftRecord {
+  width: 95%;
+  height: 100%;
+}
+
+.rightRecord {
+  width: 5%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.recordHamburger:hover + .recordMenu {
+  display: flex;
+}
+
+.recordMenu:hover {
+  display: flex;
+}
+
+.recordMenu {
+  gap: 2px;
+  padding: 1px 2px 1px 2px;
+  border-width: 2px;
+  border-style: solid;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border-color: #eff0f6;
+  display: none;
+  text-align: center;
+  flex-direction: column;
+}
+
+.recordMenu span {
+  cursor: pointer;
+}
+
+.upperRecord {
+  height: 70px;
+  width: 100%;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  margin: 10px 25px 10px 25px;
+}
+
+.info .date,
+.info .timespent,
+.info .rating,
+.info .language,
+.info .user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.info .date img {
+  width: 24px;
+  height: 27px;
+}
+
+.info .timespent img {
+  width: 24px;
+  height: 24px;
+}
+
+.info .rating img {
+  width: 24px;
+  height: 23px;
+}
+
+.info .language img {
+  width: 24px;
+  height: 19px;
+}
+
+.info .user img {
+  width: 23px;
+  height: 23px;
+}
+
+.tags {
+  height: 24px;
+  display: flex;
+  gap: 5px;
+  margin-left: 24px;
+}
+
+.description {
+  height: 40%;
+  margin-left: 24px;
+  overflow-y: auto;
+}
+
+.descriptionText {
+  font-size: 15px;
+  font-weight: 400;
+}

@@ -3,7 +3,9 @@ h2 {
   font-weight: 600;
 }
 
-#overlayDiv {
+#overlayDiv,
+#overlayDiv3,
+#overlayDiv4 {
   position: fixed;
   top: 0;
   left: 0;
@@ -14,12 +16,12 @@ h2 {
 }
 
 .popup {
-  width: 48.125vw;
-  height: 74.25925925925925vh;
+  width: 48.125%;
+  height: 74.25925925925925%;
   z-index: 2;
   background-color: rgb(255, 255, 255);
-  margin-left: 25.989583333333336vw;
-  margin-top: 13.425925925925926vh;
+  margin-left: 25.989583333333336%;
+  margin-top: 6%;
   -webkit-box-shadow: 3px 3px 9px 0px rgba(0, 0, 0, 0.19);
   -moz-box-shadow: 3px 3px 9px 0px rgba(0, 0, 0, 0.19);
   box-shadow: 3px 3px 9px 0px rgba(0, 0, 0, 0.19);
@@ -32,8 +34,8 @@ h2 {
 }
 
 .popupTitle {
-  margin-top: 1.6666666666666665vh;
-  margin-left: 12.65625vw;
+  margin-top: 1.6666666666666665%;
+  margin-left: 25%;
 }
 
 #arrowLeftButton {
@@ -41,20 +43,20 @@ h2 {
   align-items: center;
   justify-content: center;
   background-color: rgba(255, 255, 255, 1);
-  width: 2.916666666666667vw;
-  height: 5.185185185185185vh;
+  width: 56px;
+  height: 56px;
   border: none;
   border-radius: 0.625vw;
   -webkit-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   -moz-box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.16);
-  margin-left: 1.5104166666666667vw;
-  margin-top: 2.0370370370370368vh;
+  margin-left: 3.15%;
+  margin-top: 3%;
 }
 
 .arrow {
-  width: 1.640625vw;
-  height: 2.8435185185185183vh;
+  width: 31.5px;
+  height: 30.71px;
 }
 
 .addRecordForm {
@@ -78,6 +80,12 @@ h2 {
   justify-content: space-between;
 }
 
+.Administrator {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
 .addDate input,
 .addTimespent input,
 .addRating input,
@@ -99,34 +107,34 @@ h2 {
 .addTimespent input::placeholder,
 .addLanguage input::placeholder,
 .addDescription input::placeholder {
-  font-size: 1em;
+  font-size: 1rem;
   color: #babdc2;
   text-align: center;
 }
 
 .addDate img {
-  width: 1.4796875vw;
-  height: 3.0064814814814813vh;
+  width: 28.41px;
+  height: 32.47px;
 }
 
 .addTimespent img {
-  width: 1.4796875vw;
-  height: 2.6305555555555555vh;
+  width: 28.41px;
+  height: 28.41px;
 }
 
 .addRating .star {
-  width: 1.4796875vw;
-  height: 2.5175925925925924vh;
+  width: 28.41px;
+  height: 27.12px;
 }
 
 .addLanguage img {
-  width: 1.4796875vw;
-  height: 2.1037037037037036vh;
+  width: 28.41px;
+  height: 22.72px;
 }
 
 .addProgrammer img {
   width: 1.4161458333333334vw;
-  height: 2.5175925925925924vh;
+  height: 27.12px;
 }
 
 .addTag img {
@@ -135,8 +143,8 @@ h2 {
 }
 
 .addDescription img {
-  width: 1.4796875vw;
-  height: 3.0064814814814813vh;
+  width: 28.41px;
+  height: 32.47px;
 }
 
 input[type="range"] {
@@ -235,9 +243,20 @@ input[type="range"]::-moz-range-thumb:hover {
 
 #submitButton {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #287fff;
+  border-radius: 11px;
   margin-top: 50vh;
   margin-left: 4.635416666666667vw;
+  width: 660px;
+  height: 50px;
   cursor: pointer;
+  gap: 30px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
   grid-column-start: 1;
 }
 

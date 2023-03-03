@@ -1,4 +1,3 @@
-<script src="js/Dropdown.js"></script>
 <div id="overlayDiv" style="display: none;">
 	<div class="popup">
 		<div class="topPop">
@@ -19,7 +18,7 @@
 				</div>
 				<div class="addRating">
 					<img class="star" src="img/Star.png" alt="">
-					<input required type="range" name="rating" id="addRating" min="1" max="5" step="1"
+					<input required type="range" name="rating" id="addRating" min="0" max="5" step="1"
 						oninput="document.getElementById('ratingOutput').textContent = this.value">
 					<img class="ratingOutputImg" src="img/RatingOutput.png" alt="img">
 					<span id="ratingOutput">3</span>
@@ -28,23 +27,14 @@
 					<img src="img/Code.png" alt="">
 					<input required type="text" name="language" id="addLanguage" placeholder="Enter programming language">
 				</div>
-				<div class="addProgrammer">
-					<img src="img/User.png" alt="">
-					<select required class="customSelectOne" name="programmer" id="addProgrammer">
-						<option value="" selected disabled>Choose programmer</option>
-						<% programmers.forEach((programmer)=> {%>
-							<option value=<%=programmer%>><%=programmer%>
-							</option>
-							<% }) %>
-					</select>
-				</div>
 				<div class="addTag">
 					<img src="img/Category.png" alt="">
 					<select multiple class="customSelectMore" name="category" id="addCategory">
 						<option value="" selected disabled>Choose Categories</option>
 						<option value="" class="optionSmallerText" disabled>Hold CTRL to select more options</option>
-						<% categories.forEach((category)=> {%>
-							<!-- <option style="color: <%= category.color %>" value=<%=category.name%><<%=category.name%> -->
+						<% tags.forEach((tag)=> {%>
+							<option value="<%=tag.name%>" style="color: <%=tag.color%>;">
+								<%=tag.name%>
 							</option>
 							<% }) %>
 					</select>
@@ -56,7 +46,7 @@
 				<div class="addId" style="display: none;">
 					<input class="id" type="text" name="id">
 				</div>
-				<button id="submitButton" class="addRecord"><img src="img/Plus.png" alt="Plus"></button>
+				<button id="submitButton" class="addRecord"><span class="submitText">Create</span></button>
 			</form>
 		</div>
 	</div>

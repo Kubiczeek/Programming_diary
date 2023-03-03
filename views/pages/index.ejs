@@ -1,49 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/card.css" />
-    <link rel="stylesheet" href="css/tag.css" />
-    <link rel="stylesheet" href="css/popup.css" />
-    <link rel="stylesheet" href="css/settings.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <script src="js/MenuFunctions.js"></script>
-    <script src="js/CardFunctions.js"></script>
-    <%- include("../partials/popup") %> <%- include("../partials/settings") %>
-    <div class="main" id="main">
-      <div class="topSide">
-        <button
-          class="addRecord"
-          onclick='showPopUp("Add Record", "/addRecord")'
-        >
-          <img src="img/Plus.png" alt="Plus" />
-        </button>
-        <button class="buttonWithImageSmall" onclick="openSettings()">
-          <img class="cog" src="img/Cog.png" alt="Settings" />
-        </button>
-        <button class="Account" onclick='showPopUp("Account", "/addRecord")'>
-          <img src="img/User.png" alt="User" />
-        </button>
-      </div>
-      <div class="botSide">
-        <%- include('../partials/filterAndSort') %>
-        <div class="records">
-          <% data.forEach((card)=> {%> <%- include('../partials/card', {card:
-          card, categories: categories}) %> <% }) %>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>Programming diary</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/record.css" />
+  <link rel="stylesheet" href="css/tag.css" />
+  <link rel="stylesheet" href="css/popup.css" />
+  <link rel="stylesheet" href="css/notification.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <script src="js/MenuFunctions.js"></script>
+  <script src="js/RecordFunctions.js"></script>
+  <script src="js/FilterSort.js"></script>
+  <%- include("../partials/popup.ejs") %>
+    <%- include("../partials/delNotifi.ejs") %>
+      <div class="main">
+        <div class="top">
+          <div class="hamburger">
+            <img src="img/hamburger.png" alt="hamburger" id="hamburgerMenu" />
+            <div class="hambMenu">
+              <a style="cursor: pointer;" href="/admin">Admin</a>
+              <span style="cursor: pointer;" onclick="importRecord()">Import Record</span>
+              <a style="cursor: pointer;"href="/logout">Logout</a>
+            </div>
+          </div>
+          <div class="title">
+            <span>Welcome , Your Records:</span>
+          </div>
+        </div>
+        <div class="bot">
+          <div class="settings">
+            <div class="recordsButtons">
+              <div class="sortFiter">
+                <img src="img/Filter.png" id="filter" alt="Filter" onclick="showFilter()" />
+                <div>
+                  <label class="labelSort" for="sort">Sorted by: </label>
+                  <select name="sort" id="sort" onchange="handleSort(this)">
+                    <option value="None">None</option>
+                    <option value="Rating">Rating</option>
+                    <option value="Timespent">Timespent</option>
+                    <option value="Language">Language</option>
+                    <option value="Date">Date</option>
+                  </select>
+                </div>
+              </div>
+              <div class="add">
+                <button id="addButton" onclick="showPopUp('Create Record', 'Create', '/addRecord', this)">
+                  <img src="img/Plus.png" id="addPlusIcon" alt="Add" />
+                  <span>Add</span>
+                </button>
+              </div>
+            </div>
+            <div class="filterShow" style="display: none">
+              <div class="filterInput">
+                <span>From</span>
+                <input class="filterInputField" type="date" name="" id="FilterFromDate" onchange="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>To</span>
+                <input class="filterInputField" type="date" name="" id="FilterToDate" onchange="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>Timespent</span>
+                <input placeholder="From:To (in minutes)" class="filterInputField" type="text" name=""
+                  id="FilterTimespent" onkeyup="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>Rating</span>
+                <input placeholder="From:To" class="filterInputField" id="FilterRating" type="text"
+                  onkeyup="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>Language</span>
+                <input placeholder="Enter language" class="filterInputField" type="text" name="" id="FilterLanguage"
+                  onkeyup="filterUltra()" />
+              </div>
+              <div class="filterInput">
+                <span>Tag</span>
+                <select class="filterInputField" name="" id="" onchange="filterCategory(this)">
+                  <option value="None">None</option>
+                  <% tags.forEach((tag)=> {%>
+                    <option value="<%=tag.name%>" style="color: <%=tag.color%>;">
+                      <%=tag.name%>
+                    </option>
+                    <% }) %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="records">
+            <% records.forEach((record)=> { %>
+              <%- include('../partials/record.ejs', {id: record.id, date: record.date, timespent: record.time_spent,
+                rating: record.rating, language: record.programming_language, description: record.description, programmer:
+                record.programmer, categories: record.category}) %>
+                <% }) %>
+          </div>
         </div>
       </div>
-    </div>
-  </body>
+</body>
+
 </html>

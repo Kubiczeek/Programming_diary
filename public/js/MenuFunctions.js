@@ -2,22 +2,31 @@ function rawString(str) {
   return str.replace(/\t/g, "").replace(/\n/g, "");
 }
 
-function showPopUp(name, action, x) {
+function showFilter() {
+  const x = document.querySelector(".filterShow");
+  if (x.style.display == "none") {
+    x.style.display = "flex";
+  } else if (x.style.display == "flex") {
+    x.style.display = "none";
+  }
+}
+
+function showPopUp(name, actionText, action, x) {
   const popup = document.getElementById("overlayDiv");
   popup.style.display = "block";
   popup.querySelector(".popupTitle").textContent = name;
+  popup.querySelector(".submitText").textContent = actionText;
   popup.querySelector(".addRecordForm").setAttribute("action", action);
   document.getElementById("addDate").value = "";
   document.getElementById("addTimespent").value = "";
   document.getElementById("addLanguage").value = "";
   document.getElementById("addRating").value = "3";
   document.getElementById("ratingOutput").textContent = "3";
-  document.getElementById("addProgrammer").value = "";
   document.getElementById("addDescription").value = "";
   if (action != "/editRecord") return;
   let card;
   for (const c of document.getElementsByClassName("record")) {
-    if (c.querySelector(".editRec") == x) {
+    if (c.querySelector(".editRecord") == x) {
       card = c;
       break;
     }
@@ -27,61 +36,52 @@ function showPopUp(name, action, x) {
   );
   document.getElementById("addDate").value = rawString(
     card
-      .querySelector(".date .input")
-      .textContent.split("-")
+      .querySelector(".date .dateText")
+      .textContent.split(".")
       .reverse()
       .join("-")
   );
   document.getElementById("addTimespent").value = rawString(
-    card.querySelector(".timespent .input").textContent
+    card.querySelector(".timespent .timespentText").textContent.split(" ")[0]
   );
   document.getElementById("addLanguage").value = rawString(
-    card.querySelector(".language .input").textContent
+    card.querySelector(".language .languageText").textContent
   );
   document.getElementById("addRating").value = rawString(
-    card.querySelector(".rating .input").textContent.split("/")[0]
+    card.querySelector(".rating .ratingText").textContent.split("/")[0]
   );
   document.getElementById("ratingOutput").textContent = rawString(
-    card.querySelector(".rating .input").textContent.split("/")[0]
-  );
-  document.getElementById("addProgrammer").value = rawString(
-    card.querySelector(".programmer .input").textContent
+    card.querySelector(".rating .ratingText").textContent.split("/")[0]
   );
   document.getElementById("addDescription").value = rawString(
-    card.querySelector(".description").textContent
+    card.querySelector(".descriptionText").textContent
   );
 }
 function returnToMainMenu() {
   document.getElementById("overlayDiv").style.display = "none";
-  document.getElementById("settings").style.display = "none";
 }
 
-function openSettings() {
-  document.getElementById("settings").style.display = "block";
-  const programmerForm = document.querySelector(".programmerSettingsForm");
-  programmerForm.querySelector(".settings").value = "n";
-  programmerForm.querySelector(".settings").style.display = "inline";
-  programmerForm.querySelector(".programmerButton").style.display = "none";
-  const categoryForm = document.querySelector(".categoriesSettingsForm");
-  categoryForm.querySelector(".settings").value = "n";
-  categoryForm.querySelector(".settings").style.display = "inline";
-  categoryForm.querySelector(".categoryButton").style.display = "none";
-  const all = [...programmerForm.querySelectorAll(".addProgrammer")].concat(
-    [...programmerForm.querySelectorAll(".editProgrammer")].concat([
-      ...programmerForm.querySelectorAll(".deleteProgrammer"),
-    ])
-  );
-  for (const x of all) {
-    x.style.display = "none";
-    x.removeAttribute("required");
-  }
-  const all2 = [...categoryForm.querySelectorAll(".addCategory")].concat(
-    [...categoryForm.querySelectorAll(".editCategory")].concat([
-      ...categoryForm.querySelectorAll(".deleteCategory"),
-    ])
-  );
-  for (const x of all2) {
-    x.style.display = "none";
-    x.removeAttribute("required");
-  }
+function importRecord() {
+  const fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.name = "file";
+  fileInput.accept = ".json";
+  fileInput.onchange = handleFileInputChange;
+  fileInput.click();
+}
+
+function handleFileInputChange(event) {
+  const file = event.target.files[0];
+  const formData = new FormData();
+  formData.append("file", file, file.name);
+  fetch("/upload-json", {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => {
+      response.json();
+      window.location.reload();
+    })
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error));
 }

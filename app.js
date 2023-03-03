@@ -1,15 +1,18 @@
 const { json } = require("express");
+
 const express = require("express");
 var session = require('express-session')
-
 const {
   SessionLog,
-  Category,
+  Tag,
+  User,
   loadJSON,
   saveJSON,
 } = require("./public/js/FileSystem.js");
 const app = express();
-const port = 80;
+const multer = require("multer");
+const upload = multer();
+const port = 81;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -25,10 +28,10 @@ app.set("view engine", "ejs");
 app.post("/main", (req, res) => {
   const name = req.body.name;
   const password = req.body.Password;
-  const data = loadJSON("../json/data.json");
-  const data2 = loadJSON("../json/categories.json");
-  const data3 = loadJSON("../json/programmers.json");
-  const LoginData = loadJSON("../json/login.json");
+  const data = loadJSON("../json/records.json");
+  const data2 = loadJSON("../json/tags.json");
+
+  const LoginData = loadJSON("../json/users.json");
   var remember =req.body.remember;
 if(remember == "on"){
   remember = true;
@@ -48,10 +51,10 @@ if(remember == "on"){
       }
     }
     if(logged){break}
-    if (login.userName == name && login.password == password) {
+    if (login.username == name && login.password == password) {
       logged = true;
       login['saved_Devices'].push(ClientID)
-      saveJSON("../json/login.json", LoginData);
+      saveJSON("../json/users.json", LoginData);
     req.session.token = ClientID;
 
     }
@@ -60,50 +63,53 @@ if(remember == "on"){
 
   if (logged == true) {
       res.render("pages/index", {
-      data: data,
-      categories: data2,
-      programmers: data3,
+        records: data,
+      tags: data2,
     });
   } else {  
-    res.render("pages/login", {
-    data: data,
+    res.redirect("/login", {
+      records: data,
     categories: data2,
-    programmers: data3,
   });
   }
 });
 app.get("/", (req, res) => {
-  const data = loadJSON("../json/data.json");
-  const data2 = loadJSON("../json/categories.json");
-  const data3 = loadJSON("../json/programmers.json");
-  const LoginData = loadJSON("../json/login.json");
+  const data = loadJSON("../json/records.json");
+  const data2 = loadJSON("../json/tags.json");
+  const LoginData = loadJSON("../json/users.json");
   let logged = false;
+  UserId = "";
   for (login of LoginData) {
     for(save of login.saved_Devices){
       if(save == req.session.token){
         logged= true
+        UserId = login.id
+
       }
     }
 
     
   }
   if(logged){
+
+  
+
     res.render("pages/index", {
-      data: data,
-      categories: data2,
-      programmers: data3,
+      records: data,
+      tags: data2,
+      programmers: LoginData,
     });
   }else{
-    res.render("pages/login", {
+    res.redirect("/login", {
       data: data,
   
     });}
 });
-app.get("/logadmin", (req, res) => {
-  const data = loadJSON("../json/data.json");
-  const data2 = loadJSON("../json/categories.json");
-  const data3 = loadJSON("../json/programmers.json");
-  const LoginData = loadJSON("../json/login.json");
+
+app.get("/admin", (req, res) => {
+  const data = loadJSON("../json/tags.json");
+  const data2 = loadJSON("../json/users.json");
+  const LoginData = loadJSON("../json/users.json");
 
   ClientID= req.session.token 
 var doIt = false
@@ -113,28 +119,26 @@ var doIt = false
     jsonObject.saved_Devices.forEach((saved)=> {
       if(jsonObject.admin == true){
         doIt = true
-        console.log("doit truw")
       }
     })
 
       
   });
 if(doIt == true){
-  console.log("kakd")
-  res.redirect("/main");
-  // sem sem admin sem sem admin sem sem admin sem sem admin sem sem admin sem sem admin sem sem admin sem sem adminsem sem admin sem sem admin sem sem admin sem sem admin sem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem adminsem sem admin sem sem admin
+  res.render("pages/admin", {
+    tags: data,
+    users: data2,
+  });
 }else {
-  console.log("----")
   res.redirect("/login");
 
  
 }
 });
 app.get('/login',(req,res)=>{
-  const data = loadJSON("../json/data.json");
+  const data = loadJSON("../json/records.json");
   const data2 = loadJSON("../json/categories.json");
-  const data3 = loadJSON("../json/programmers.json");
-  const LoginData = loadJSON("../json/login.json");
+  const LoginData = loadJSON("../json/users.json");
 
   res.render('pages/login', {
   
@@ -142,39 +146,20 @@ app.get('/login',(req,res)=>{
 
 });
 app.get("/logout", (req, res) => {
-  const data = loadJSON("../json/data.json");
+  const data = loadJSON("../json/records.json");
   const data2 = loadJSON("../json/categories.json");
-  const data3 = loadJSON("../json/programmers.json");
-  const LoginData = loadJSON("../json/login.json");
+  const LoginData = loadJSON("../json/users.json");
 
 
-    req.session.token = null
+    req.session.token = "5"
     res.redirect("/login");
-});
-app.post("/addRecord", (req, res) => {
-  const body = req.body;
-  const data = loadJSON("../json/data.json");
-  const sessionLog = new SessionLog(
-    Date.now(),
-    body.date,
-    body.timespent,
-    body.rating,
-    body.language,
-    body.description,
-    body.programmer,
-    Array.isArray(body.category) ? body.category : [body.category]
-  );
-  data.push(sessionLog);
-  saveJSON("../json/data.json", data);
-  res.redirect("/");
 });
 app.post("/login", (req, res) => {
   const name = req.body.name;
   const password = req.body.Password;
-  const data = loadJSON("../json/data.json");
+  const data = loadJSON("../json/records.json");
   const data2 = loadJSON("../json/categories.json");
-  const data3 = loadJSON("../json/programmers.json");
-  const LoginData = loadJSON("../json/login.json");
+  const LoginData = loadJSON("../json/users.json");
   console.log(name);
   console.log(password);
   let logged = false;
@@ -189,19 +174,61 @@ app.post("/login", (req, res) => {
     console.log("ssuccess!");
     res.render("views/public/login.ejs", {
       data: data,
-      categories: data2,
-      programmers: data3,
+      tags: data2,
     });
   } else {
     console.error("Wrong password or name");
   }
 });
+app.post("/exportRecord", (req, res) => {
+  const data = loadJSON("../json/records.json");
+  const record = data.find((obj) => obj.id === req.body.id);
+  const fileName = `export-${req.body.id}.json`;
+
+  fs.writeFile(fileName, JSON.stringify(record), (err) => {
+    if (err) throw err;
+    res.download(fileName, (err) => {
+      if (err) throw err;
+      fs.unlinkSync(fileName);
+    });
+  });
+});
+
+app.post("/upload-json", upload.single("file"), (req, res) => {
+  const data = loadJSON("../json/records.json");
+  const fileBuffer = req.file.buffer;
+  const fileString = fileBuffer.toString("utf-8");
+  const jsonData = JSON.parse(fileString);
+  console.log(jsonData);
+  data.unshift(jsonData);
+  saveJSON("../json/records.json", data);
+  // Send a response to the client
+  res.send("File uploaded successfully.");
+});
+
+app.post("/addRecord", (req, res) => {
+  const body = req.body;
+  const data = loadJSON("../json/records.json");
+  const sessionLog = new SessionLog(
+    Date.now().toString(),
+    body.date,
+    body.timespent,
+    body.rating,
+    body.language,
+    body.description,
+    Array.isArray(body.category) ? body.category : [body.category]
+  );
+  data.push(sessionLog);
+  saveJSON("../json/records.json", data);
+  res.redirect("/");
+});
+
 app.post("/deleteRecord", (req, res) => {
-  const currentJson = loadJSON("../json/data.json");
+  const currentJson = loadJSON("../json/records.json");
   for (let i = 0; i < currentJson.length; i++) {
     if (currentJson[i].id == req.body.id) {
       currentJson.splice(i, 1);
-      saveJSON("../json/data.json", currentJson);
+      saveJSON("../json/records.json", currentJson);
       return;
     }
   }
@@ -209,7 +236,7 @@ app.post("/deleteRecord", (req, res) => {
 });
 
 app.post("/editRecord", (req, res) => {
-  const currentJson = loadJSON("../json/data.json");
+  const currentJson = loadJSON("../json/records.json");
   const body = req.body;
   console.log(currentJson, body);
   currentJson.forEach((jsonObject) => {
@@ -219,18 +246,98 @@ app.post("/editRecord", (req, res) => {
       jsonObject.rating = body.rating;
       jsonObject.language = body.language;
       jsonObject.description = body.description;
-      jsonObject.programmer = body.programmer;
       jsonObject.category = Array.isArray(body.category)
         ? body.category
         : [body.category];
     }
   });
-  saveJSON("../json/data.json", currentJson);
+  saveJSON("../json/records.json", currentJson);
   res.redirect("/");
 });
 
+app.post("/admin/addUser", (req, res) => {
+  const body = req.body;
+  const currentJson = loadJSON("../json/users.json");
+  console.log(body);
+  const user = new User(
+    Date.now().toString(),
+    body.adminYes == "false" ? true : false,
+    body.username,
+    body.surname,
+    body.fName,
+    body.email,
+    body.password
+  );
+  currentJson.push(user);
+  saveJSON("../json/users.json", currentJson);
+  res.redirect("/admin");
+});
+
+app.post("/admin/editUser", (req, res) => {
+  const body = req.body;
+  const currentJson = loadJSON("../json/users.json");
+  currentJson.forEach((user) => {
+    if (user.id == body.id) {
+      user.admin = body.adminYes;
+      user.username = body.username;
+      user.surname = body.surname;
+      user.name = body.fName;
+      user.email = body.email;
+      user.password = body.password;
+    }
+  });
+  saveJSON("../json/users.json", currentJson);
+  res.redirect("/admin");
+});
+
+app.post("/admin/deleteUser", (req, res) => {
+  const body = req.body;
+  console.log(body.id);
+  const currentJson = loadJSON("../json/users.json");
+  const filtered = currentJson.filter((user) => user.id != body.id);
+  saveJSON("../json/users.json", filtered);
+  res.redirect("/admin");
+});
+
+app.post("/admin/addTag", (req, res) => {
+  const body = req.body;
+  const currentJson = loadJSON("../json/tags.json");
+  const tag = new Tag(
+    Date.now().toString(),
+    body.name,
+    body.color,
+    body.description
+  );
+  console.log(tag);
+  currentJson.push(tag);
+  saveJSON("../json/tags.json", currentJson);
+  res.redirect("/admin");
+});
+
+app.post("/admin/editTag", (req, res) => {
+  const body = req.body;
+  const currentJson = loadJSON("../json/tags.json");
+  currentJson.forEach((tag) => {
+    if (tag.id == body.id) {
+      tag.name = body.name;
+      tag.color = body.color;
+      tag.description = body.description;
+    }
+  });
+  saveJSON("../json/tags.json", currentJson);
+  res.redirect("/admin");
+});
+
+app.post("/admin/deleteTag", (req, res) => {
+  const body = req.body;
+  const currentJson = loadJSON("../json/tags.json");
+  const filtered = currentJson.filter((tag) => tag.id != body.id);
+  saveJSON("../json/tags.json", filtered);
+  res.redirect("/admin");
+});
+
 app.post("/programmer", (req, res) => {
-  const currentJson = loadJSON("../json/data.json");
+  const currentJson = loadJSON("../json/records.json");
   const programmersJson = loadJSON("../json/programmers.json");
   const body = req.body;
   switch (body.settings) {
@@ -248,7 +355,7 @@ app.post("/programmer", (req, res) => {
         programmersJson[index] = body.name;
       }
       saveJSON("../json/programmers.json", programmersJson);
-      saveJSON("../json/data.json", currentJson);
+      saveJSON("../json/records.json", currentJson);
       break;
     case "Delete":
       const newProgrammers = programmersJson.filter((programmer) => {
@@ -259,19 +366,18 @@ app.post("/programmer", (req, res) => {
       });
       console.log(newRecordsJson, newProgrammers);
       saveJSON("../json/programmers.json", newProgrammers);
-      saveJSON("../json/data.json", newRecordsJson);
+      saveJSON("../json/records.json", newRecordsJson);
       break;
   }
   res.redirect("/");
 });
 
 app.post("/category", (req, res) => {
-  const currentJson = loadJSON("../json/data.json");
+  const currentJson = loadJSON("../json/records.json");
   const categoriesJson = loadJSON("../json/categories.json");
   const body = req.body;
   switch (body.settings) {
     case "Add":
-      const category = new Category(body.name, body.color, body.description);
       categoriesJson.push(category);
       saveJSON("../json/categories.json", categoriesJson);
       break;
@@ -293,7 +399,7 @@ app.post("/category", (req, res) => {
         card.category = filteredX;
       }
       console.log(currentJson);
-      saveJSON("../json/data.json", currentJson);
+      saveJSON("../json/records.json", currentJson);
       saveJSON("../json/categories.json", categoriesJson);
       break;
     case "Delete":
@@ -306,18 +412,16 @@ app.post("/category", (req, res) => {
         });
         jsonObject.category = x;
       });
-      saveJSON("../json/data.json", currentJson);
+      saveJSON("../json/records.json", currentJson);
       saveJSON("../json/categories.json", newCategoryJson);
       break;
   }
   res.redirect("/");
 });
-
-
 app.delete('/users/:Uid/records/:Rid',(req,res)=>{
   const id = req.params;
   console.log(id);
-  const currentJson = loadJSON("../json/data.json");
+  const currentJson = loadJSON("../json/records.json");
   console.log("R Id  _ "+id.Rid)
   for (let i = 0; i < currentJson.length; i++) {
     console.log("json ID _ "+currentJson[i].id)
@@ -325,7 +429,7 @@ app.delete('/users/:Uid/records/:Rid',(req,res)=>{
       currentJson.splice(i, 1);
    console.log("found")
       res.status(200).send();
-      saveJSON("../json/data.json", currentJson);
+      saveJSON("../json/records.json", currentJson);
       return;
     }
   }
@@ -338,13 +442,14 @@ app.delete('/users/:Uid/records/:Rid',(req,res)=>{
 app.get('/users/:Uid/records/:Rid',(req,res)=>{
   const id = req.params;
   
-  const currentJson = loadJSON("../json/data.json");
+  const currentJson = loadJSON("../json/records.json");
   for (let i = 0; i < currentJson.length; i++) {
+    console.log("json == " +currentJson[i].id+"  =?=   Rid == " + id.Rid )
     if (currentJson[i].id == id.Rid) {
       
       console.log(currentJson[i])
       res.send(currentJson[i])
-     
+
       return;
     }
   }
@@ -355,7 +460,7 @@ app.get('/users/:Uid/records/:Rid',(req,res)=>{
 app.get('/users/:Uid/records/',(req,res)=>{
   const id = req.params;
   var Complete = [];
-  const currentJson = loadJSON("../json/data.json");
+  const currentJson = loadJSON("../json/records.json");
   for (let i = 0; i < currentJson.length; i++) {
     if (currentJson[i].userId == id.Uid) {
       
@@ -373,7 +478,7 @@ app.get('/users/:Uid/records/',(req,res)=>{
 app.put('/users/:Uid/records/:Rid',(req,res)=>{
   const id = req.params;
   
-  const currentJson = loadJSON("../json/data.json");
+  const currentJson = loadJSON("../json/records.json");
 
   sessionLog= req.body;
   currentJson.forEach((jsonObject) => {
@@ -389,9 +494,10 @@ app.put('/users/:Uid/records/:Rid',(req,res)=>{
       jsonObject.category = Array.isArray(req.body.category)
         ? req.body.category
         : [req.body.category];
+        
     }
   });
-  saveJSON("../json/data.json", currentJson);
+  saveJSON("../json/records.json", currentJson);
  res.status(200).send()
 
 
@@ -400,14 +506,13 @@ app.put('/users/:Uid/records/:Rid',(req,res)=>{
 app.post('/users/:Uid/records/',(req,res)=>{
   const id = req.params;
 
-  const currentJson = loadJSON("../json/data.json");
+  const currentJson = loadJSON("../json/records.json");
   req.body.userId = id.Uid;
+  req.body.category =[]
   currentJson.push(req.body);
-  saveJSON("../json/data.json", currentJson);
+  saveJSON("../json/records.json", currentJson);
   res.send(req.body)
     
-  
-
 });
 app.listen(port, () =>
   console.log(`App listening on http://localhost:${port} \n(Port: ${port})`)
