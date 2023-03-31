@@ -1,0 +1,46 @@
+<div>
+    <!--Just coppy -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  
+    <canvas id="myChart" style="width: 100%; max-width: 600px"></canvas>
+  
+    <script>
+      var xValues = ["Italy", "France", "Spain", "USA", "Argentina"]; //change this and the one below
+      var yValues = [55, 49, 44, 24, 15]; //change this by the data u want
+      var _title = "Commits per month";
+      var barColors = [
+        "purple",
+        "yellow",
+        "pink",
+        "red",
+        "blue",
+        "turquoise",
+        "magenta",
+        "grean",
+        "teal",
+        "maroon",
+        "navy",
+        "gold",
+      ];
+  
+      new Chart("myChart", {
+        type: "bar",
+        data: {
+          labels: xValues,
+          datasets: [
+            {
+              backgroundColor: barColors,
+              data: yValues,
+            },
+          ],
+        },
+        options: {
+          legend: { display: false, text: "Commits in a month" },
+          title: {
+            display: true,
+            text: _title,
+          },
+        },
+      });
+    </script>
+  </div>

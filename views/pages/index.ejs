@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/test.css" />
+    <link rel="stylesheet" href="css/note.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Interactive board</title>
+</head>
+<body>
+    <nav class="top">
+        <a class="moveButton" style="color:#287fff">Notes</a>
+        <a href="/statistics" class="moveButton" style="color:#c7c7c7">Statistics</a>
+    </nav>
+    <script src="js/popup.js"></script>
+    <script src="js/edit.js"></script>
+    <%- include("../partials/editNote.ejs", {text: "Ahoj",author: "Jakup",id: "123",color: "#287fff"}) %>
+    <%- include("../partials/addNote.ejs") %>
+    <div class="mainDiv">
+        <div class="notesContainer">
+            <% notes.forEach(element => {%>
+                <%- include("../partials/note.ejs", {noteText: element.text, authorText: element.author, color: element.color, id: element.id}) %>
+                <%}); %>
+        </div>
+    </div>
+    <div class="floating-container">
+        <button class="floating-button" onclick="showPopUp()">+</button>
+    </div>
+</body>
+</html>

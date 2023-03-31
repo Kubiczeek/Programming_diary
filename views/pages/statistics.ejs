@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/note.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Interactive board</title>
+  </head>
+  <body>
+    <nav class="top">
+        <a href="/" class="moveButton" style="color:#c7c7c7">Notes</a>
+        <a class="moveButton" style="color:#287fff">Statistics</a>
+    </nav>
+    <div id="Barchart">
+      <!--Just coppy -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+      <h1>Last Commit</h1>
+      <p id="lastOne">Last Commit:</p>
+
+      <p id="Ladded">This many lines were added</p> </p>
+      <p id="Lremoved">This many lines were removed</p> </p>
+
+      <h1>All Commits</h1>
+      <p id="sum">There are already this many commits </p>
+
+      <canvas id="myChart" style="width: 100%; max-width: 600px"></canvas>
+
+      <script>
+        let time = new Date();
+        month = time.getMonth();
+        Mnames = [
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+          "January",
+          "February",
+          "March",
+        ];
+        fetch("https://tda.knapa.cz/commit/filter/2022-03-31", {
+          headers: {
+            accept: "application/json",
+            "x-access-token": "ed177118c5fb414b8ae426379e5652b5",
+          },
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            lastdata = data;
+            var x = data.length;
+            last = document.getElementById("sum");
+            last.innerHTML = "There are already this many commits :" + x;
+          });
+
+        /* var yValues = [];
+          var wwww = [];
+        fetch("https://tda.knapa.cz/commit/filter/2022-03-31", {
+          headers: {
+            accept: "application/json",
+            "x-access-token": "ed177118c5fb414b8ae426379e5652b5",
+          },
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            lastdata = data;
+            console.log(data);
+            var x = data.length;
+
+            wwww = data
+          });
+          for (let i = 0; i < wwww.length; i++) {
+              let lol = wwww[i].date;
+              if(lol.slice(6,7)=4){
+                yValues[0]++;
+              }
+              if(lol.slice(6,7)=5){
+                yValues[1]++;
+              }
+              if(lol.slice(6,7)=6){
+                yValues[2]++;
+              }
+              if(lol.slice(6,7)=7){
+                yValues[3]++;
+              }
+              if(lol.slice(6,7)=8){
+                yValues[4]++;
+              }
+              if(lol.slice(6,7)=9){
+                yValues[5]++;
+              }
+              if(lol.slice(5,7)=10){
+                yValues[6]++;
+              }
+              if(lol.slice(5,7)=11){
+                yValues[7]++;
+              }
+              if(lol.slice(5,7)=12){
+                yValues[8]++;
+              }
+              if(lol.slice(6,7)=1){
+                yValues[9]++;
+              }
+              if(lol.slice(6,7)=2){
+                yValues[10]++;
+              }
+              if(lol.slice(6,7)=3){
+                yValues[11]++;
+              }
+            }
+      ¨*/
+
+        var lastdata;
+        fetch("https://tda.knapa.cz/commit/latest/1", {
+          headers: {
+            accept: "application/json",
+            "x-access-token": "ed177118c5fb414b8ae426379e5652b5",
+          },
+        })
+          .then(function (response) {
+            // The response is a Response instance.
+            // You parse the data into a useable format using `.json()`
+            return response.json();
+          })
+          .then(function (data) {
+            // `data` is the parsed version of the JSON returned from the above endpoint.
+            lastdata = data[0];
+            console.log(lastdata.lines_added);
+            console.log(lastdata.lines_removed);
+
+            last = document.getElementById("lastOne");
+            last.innerHTML = "description: " + lastdata.description;
+            last = document.getElementById("Ladded");
+
+            last.innerHTML = "Lines Added: " + lastdata.lines_added;
+            last = document.getElementById("Lremoved");
+
+            last.innerHTML = "Lines Removed: " + lastdata.lines_removed;
+
+          });
+      </script>
+    </div>
+  </body>
+</html>

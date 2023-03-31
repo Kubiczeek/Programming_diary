@@ -1,0 +1,31 @@
+<div id="overlayDiv" style="display: none">
+    <!--id author text-->
+    <div class="popup">
+      <div class="topPop">
+        <button id="arrowLeftButton" onclick="returnToMainMenu()">Back</button>
+        <h2 class="popupTitle">Add Note</h2>
+      </div>
+      <div class="popUpForm">
+        <form class="addRecordForm" method="post" action="/addNote">
+          <input
+            name="text"
+            required
+            max="120"
+            min="1"
+            type="text"
+            placeholder="text"
+          />
+          <input
+            name="author"
+            required
+            max="30"
+            min="1"
+            type="text"
+            placeholder="author´s name"
+          />
+          <input name="color" value="#DFDC66" type="color" />
+          <input type="submit" value="submit" />
+        </form>
+      </div>
+    </div>
+  </div>
