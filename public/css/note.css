@@ -1,0 +1,21 @@
+.note {
+    width: 216px;
+    height: 192px;
+    font-family: 'Roboto', sans-serif;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.textContainer {
+    height: 90%;
+    
+}
+
+.authorContainer {
+    display: flex;
+    align-self: flex-end;
+    height: 10%;
+}
